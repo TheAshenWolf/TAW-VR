@@ -2,7 +2,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace TAW_VR.VrHandling
+namespace TawVR
 {
   /// <summary>
   /// Attached to a gameObject to make it grabbable by the controllers

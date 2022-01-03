@@ -1,4 +1,4 @@
-﻿namespace TAW_VR
+﻿namespace TawVR
 {
     public enum ControllerInput
     {

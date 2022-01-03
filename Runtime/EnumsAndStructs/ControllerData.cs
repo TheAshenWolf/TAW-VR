@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TAW_VR
+namespace TawVR
 {
   public struct ControllerData
   {

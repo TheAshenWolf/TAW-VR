@@ -1,6 +1,6 @@
 using UnityEngine.XR;
 
-namespace TAW_VR.VrHandling
+namespace TawVR
 {
   public class Controller
   {

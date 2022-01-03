@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.XR;
 
-namespace TAW_VR.VrHandling
+namespace TawVR
 {
   public class VrRig : MonoBehaviour
   {
