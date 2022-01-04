@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -9,12 +10,13 @@ namespace TawVR.Editor
   {
     [Title("Privates")] 
     private bool editingInput = false;
-
     private bool editingLeftController;
     private bool editingRightController;
+
     public override void OnInspectorGUI()
     {
-      DrawDefaultInspector();
+      base.OnInspectorGUI();
+      
       if (GUILayout.Button("Setup inputs"))
       {
         VrRigInputSettings inputSettings = (VrRigInputSettings) EditorWindow.GetWindow(typeof(VrRigInputSettings), true, "Input editor");
