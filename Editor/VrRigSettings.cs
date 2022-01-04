@@ -1,43 +1,24 @@
-using System;
-using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 
 namespace TawVR.Editor
 {
   [CustomEditor(typeof(VrRig))]
-  public class VrRigSettings : UnityEditor.Editor // Inspector window
+  public class VrRigSettings : OdinEditor // Inspector window
   {
-    [Title("Privates")] 
-    private bool editingInput = false;
-    private bool editingLeftController;
-    private bool editingRightController;
-
     public override void OnInspectorGUI()
     {
-      base.OnInspectorGUI();
+      PropertyTree tree = this.Tree;
+      tree.DrawMonoScriptObjectField = false;
+      tree.Draw();
       
       if (GUILayout.Button("Setup inputs"))
       {
-        VrRigInputSettings inputSettings = (VrRigInputSettings) EditorWindow.GetWindow(typeof(VrRigInputSettings), true, "Input editor");
-        inputSettings.rigInstance = (VrRig)target;
-        inputSettings.Show();
-      }
-
-      EditorGUILayout.Foldout(editingInput, "Input Settings");
-      if (editingInput)
-      {
-        EditorGUILayout.Foldout(editingLeftController, "Left Controller");
-        if (editingLeftController)
-        {
-          
-        }
-        
-        EditorGUILayout.Foldout(editingRightController, "Right Controller");
-        if (editingRightController)
-        {
-        
-        }
+        VrRigInputEditor inputEditor = (VrRigInputEditor) EditorWindow.GetWindow(typeof(VrRigInputEditor), true, "Input editor");
+        inputEditor.rigInstance = (VrRig)target;
+        inputEditor.Show();
       }
     }
   }

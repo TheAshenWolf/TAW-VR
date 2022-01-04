@@ -8,52 +8,47 @@ namespace TawVR
 {
   public class VrRig : MonoBehaviour
   {
-    [Title("Components")] public Camera mainCamera;
-    public LineRenderer rightPointer;
-    public LineRenderer leftPointer;
-    public Animator fadeOutAnimator;
+    [Title("Components"), BoxGroup] public Camera mainCamera;
+    [BoxGroup] public LineRenderer rightPointer;
+    [BoxGroup] public LineRenderer leftPointer;
+    [BoxGroup] public Animator fadeOutAnimator;
 
     [Title("General Settings")]
-    [BoxGroup("Settings"),
-     Tooltip("Checks for stairs, steep hills and colliders, doesnt allow passage thru walls and floors.")]
+    [BoxGroup, Tooltip("Checks for stairs, steep hills and colliders, doesnt allow passage thru walls and floors.")]
     public bool advancedColliderDetection;
 
-    [ShowIf(nameof(advancedColliderDetection)), BoxGroup("ACD"),
-     Tooltip("Radius around the main position to consider as body.")]
+    [ShowIf(nameof(advancedColliderDetection)), BoxGroup("ACD"), Tooltip("Radius around the main position to consider as body.")]
     public float colliderDifferenceThreshold = 0.125f;
 
-    [ShowIf(nameof(advancedColliderDetection)), BoxGroup("ACD"),
-     Tooltip("The bottom-most floor. Doesn't allow movement past this point. Set to -1 to disable.")]
+    [ShowIf(nameof(advancedColliderDetection)), BoxGroup("ACD"), Tooltip("The bottom-most floor. Doesn't allow movement past this point. Set to -1 to disable.")]
     public float floorLevel;
 
-    [BoxGroup("Settings"), Tooltip("Swaps the bindings between left and right hand.")]
+    [BoxGroup, Tooltip("Swaps the bindings between left and right hand.")]
     public bool invertHands;
 
-    [BoxGroup("Settings"), Tooltip("Base color of the pointer"), ColorUsage(true, false)]
+    [BoxGroup, Tooltip("Base color of the pointer"), ColorUsage(true, false)]
     public Color basePointerColor;
 
-    [BoxGroup("Settings"), Tooltip("Pointer color when user can teleport"), ColorUsage(true, false)]
+    [BoxGroup, Tooltip("Pointer color when user can teleport"), ColorUsage(true, false)]
     public Color canTeleportColor;
 
-    [BoxGroup("Settings"), Tooltip("Pointer color when user can NOT teleport"), ColorUsage(true, false)]
+    [BoxGroup, Tooltip("Pointer color when user can NOT teleport"), ColorUsage(true, false)]
     public Color cannotTeleportColor;
 
-    [BoxGroup("Settings"), Tooltip("Speed used for movement")]
+    [BoxGroup, Tooltip("Speed used for movement")]
     public float movementSpeed;
 
     // -----
-    [BoxGroup("Controls"), Tooltip("If false, user can not teleport.")]
+    [Title("Controls"), BoxGroup, Tooltip("If false, user can not teleport.")]
     public bool teleportationEnabled;
 
-    [ShowIf(nameof(teleportationEnabled)), BoxGroup("Controls"),
-     Tooltip(
-       "true - uses a ballistic calculation to get the final position of the teleport; false - uses a straight line")]
+    [ShowIf(nameof(teleportationEnabled)), BoxGroup, Tooltip("true - uses a ballistic calculation to get the final position of the teleport; false - uses a straight line")]
     public bool useBallisticTeleportation;
 
-    [BoxGroup("Controls"), Tooltip("If false, user can not move on the horizontal plane.")]
+    [BoxGroup, Tooltip("If false, user can not move on the horizontal plane.")]
     public bool horizontalMovementEnabled;
 
-    [BoxGroup("Controls"), Tooltip("If false, user can not move along the vertical axis.")]
+    [BoxGroup, Tooltip("If false, user can not move along the vertical axis.")]
     public bool verticalMovementEnabled;
 
 
@@ -163,7 +158,7 @@ namespace TawVR
       right.Normalize();
 
       Vector3 coordinates = right * input.x + forward * input.y;
-      
+
       if (advancedColliderDetection)
       {
         Vector3 cameraPosition = mainCameraTransform.transform.position;
@@ -193,7 +188,7 @@ namespace TawVR
           coordinates = new Vector3(coordinates.x, coordinates.y + difference, coordinates.z);
         }
       }
-      
+
       transform.Translate(coordinates * movementSpeed * Time.deltaTime);
     }
 
@@ -207,19 +202,21 @@ namespace TawVR
       if (advancedColliderDetection)
       {
         float cameraHeight = mainCameraTransform.transform.localPosition.y;
-        
+
         // floor
-        if (Physics.SphereCast(new Ray(mainCameraTransform.position, -mainCameraTransform.up), .1f, out RaycastHit hitDown) && input.y < 0)
+        if (Physics.SphereCast(new Ray(mainCameraTransform.position, -mainCameraTransform.up), .1f,
+              out RaycastHit hitDown) && input.y < 0)
         {
           if (hitDown.distance < cameraHeight) return;
         }
         // ceiling
-        else if (Physics.SphereCast(new Ray(mainCameraTransform.position, mainCameraTransform.up), .1f, out RaycastHit hitUp) && input.y < 0)
+        else if (Physics.SphereCast(new Ray(mainCameraTransform.position, mainCameraTransform.up), .1f,
+                   out RaycastHit hitUp) && input.y < 0)
         {
           if (hitUp.distance < .1f) return;
         }
       }
-      
+
       if (mainCamera.transform.position.y > (floorLevel + .5f) || input.y > 0)
       {
         transform.Translate(coordinates * movementSpeed * Time.deltaTime);
