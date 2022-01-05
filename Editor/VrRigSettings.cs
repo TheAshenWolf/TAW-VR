@@ -19,6 +19,7 @@ namespace TawVR.Editor
         VrRigInputEditor inputEditor = (VrRigInputEditor) EditorWindow.GetWindow(typeof(VrRigInputEditor), true, "Input editor");
         inputEditor.rigInstance = (VrRig)target;
         inputEditor.Show();
+        inputEditor.Init((VrRig)target);
       }
     }
   }
