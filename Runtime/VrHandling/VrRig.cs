@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR;
 
 namespace TawVR
@@ -50,11 +51,31 @@ namespace TawVR
 
     [BoxGroup, Tooltip("If false, user can not move along the vertical axis.")]
     public bool verticalMovementEnabled;
-
-
-    [Title("Privates")] private List<InputDevice> _inputDevices = new List<InputDevice>();
+    
+    [Title("Privates")] 
+    private List<InputDevice> _inputDevices = new List<InputDevice>();
     private Controller _leftController = null;
     private Controller _rightController = null;
+
+    [Title("Calls")]
+    [HideInInspector] public UnityVector2Event leftJoystickAxis;
+    [HideInInspector] public UnityEvent leftJoystickClick;
+    [HideInInspector] public UnityEvent buttonXClick;
+    [HideInInspector] public UnityEvent buttonYClick;
+    [HideInInspector] public UnityEvent leftTriggerClick;
+    [HideInInspector] public UnityFloatEvent leftTriggerPressure;
+    [HideInInspector] public UnityEvent leftGripClick;
+    [HideInInspector] public UnityFloatEvent leftGripPressure;
+    
+    [HideInInspector] public UnityVector2Event rightJoystickAxis;
+    [HideInInspector] public UnityEvent rightJoystickClick;
+    [HideInInspector] public UnityEvent buttonAClick;
+    [HideInInspector] public UnityEvent buttonBClick;
+    [HideInInspector] public UnityEvent rightTriggerClick;
+    [HideInInspector] public UnityFloatEvent rightTriggerPressure;
+    [HideInInspector] public UnityEvent rightGripClick;
+    [HideInInspector] public UnityFloatEvent rightGripPressure;
+    
 
     private void Awake()
     {
