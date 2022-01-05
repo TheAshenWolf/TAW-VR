@@ -14,8 +14,8 @@ namespace TawVR
     public bool worldPositionStays = true;
     public bool returnToOriginalSpotOnRelease = false;
 
-    public UnityAction onGrabbed;
-    public UnityAction onReleased;
+    public UnityEvent onGrabbed;
+    public UnityEvent onReleased;
 
     [Title("Dynamic")] 
     [ReadOnly] public Grabber grabbedBy;
