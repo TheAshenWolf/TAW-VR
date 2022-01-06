@@ -31,8 +31,12 @@ namespace TawVR.Editor
     private SerializedProperty _leftXCalls;
     private SerializedProperty _leftYCalls;
     private SerializedProperty _leftTriggerCalls;
+    private SerializedProperty _leftTriggerReleasedCalls;
+    private SerializedProperty _leftTriggerHoldCalls;
     private SerializedProperty _leftTriggerPressureCalls;
     private SerializedProperty _leftGripCalls;
+    private SerializedProperty _leftGripReleasedCalls;
+    private SerializedProperty _leftGripHoldCalls;
     private SerializedProperty _leftGripPressureCalls;
 
     private SerializedProperty _rightJoystickCalls;
@@ -40,8 +44,12 @@ namespace TawVR.Editor
     private SerializedProperty _rightACalls;
     private SerializedProperty _rightBCalls;
     private SerializedProperty _rightTriggerCalls;
+    private SerializedProperty _rightTriggerReleasedCalls;
+    private SerializedProperty _rightTriggerHoldCalls;
     private SerializedProperty _rightTriggerPressureCalls;
     private SerializedProperty _rightGripCalls;
+    private SerializedProperty _rightGripReleasedCalls;
+    private SerializedProperty _rightGripHoldCalls;
     private SerializedProperty _rightGripPressureCalls;
 
     protected override void OnEnable()
@@ -51,8 +59,12 @@ namespace TawVR.Editor
       _leftXCalls = serializedObject.FindProperty(nameof(rigInstance.buttonXClick));
       _leftYCalls = serializedObject.FindProperty(nameof(rigInstance.buttonYClick));
       _leftTriggerCalls = serializedObject.FindProperty(nameof(rigInstance.leftTriggerClick));
+      _leftTriggerReleasedCalls = serializedObject.FindProperty(nameof(rigInstance.leftTriggerRelease));
+      _leftTriggerHoldCalls = serializedObject.FindProperty(nameof(rigInstance.leftTriggerHold));
       _leftTriggerPressureCalls = serializedObject.FindProperty(nameof(rigInstance.leftTriggerPressure));
       _leftGripCalls = serializedObject.FindProperty(nameof(rigInstance.leftGripClick));
+      _leftGripReleasedCalls = serializedObject.FindProperty(nameof(rigInstance.leftGripRelease));
+      _leftGripHoldCalls = serializedObject.FindProperty(nameof(rigInstance.leftGripHold));
       _leftGripPressureCalls = serializedObject.FindProperty(nameof(rigInstance.leftGripPressure));
 
       _rightJoystickCalls = serializedObject.FindProperty(nameof(rigInstance.rightJoystickAxis));
@@ -60,8 +72,12 @@ namespace TawVR.Editor
       _rightACalls = serializedObject.FindProperty(nameof(rigInstance.buttonAClick));
       _rightBCalls = serializedObject.FindProperty(nameof(rigInstance.buttonBClick));
       _rightTriggerCalls = serializedObject.FindProperty(nameof(rigInstance.rightTriggerClick));
+      _rightTriggerReleasedCalls = serializedObject.FindProperty(nameof(rigInstance.rightTriggerRelease));
+      _rightTriggerHoldCalls = serializedObject.FindProperty(nameof(rigInstance.rightTriggerHold));
       _rightTriggerPressureCalls = serializedObject.FindProperty(nameof(rigInstance.rightTriggerPressure));
       _rightGripCalls = serializedObject.FindProperty(nameof(rigInstance.rightGripClick));
+      _rightGripReleasedCalls = serializedObject.FindProperty(nameof(rigInstance.rightGripRelease));
+      _rightGripHoldCalls = serializedObject.FindProperty(nameof(rigInstance.rightGripHold));
       _rightGripPressureCalls = serializedObject.FindProperty(nameof(rigInstance.rightGripPressure));
     }
 
@@ -120,6 +136,8 @@ namespace TawVR.Editor
       if (editingLeftTrigger)
       {
         IndentedEvent(_leftTriggerCalls);
+        IndentedEvent(_leftTriggerReleasedCalls);
+        IndentedEvent(_leftTriggerHoldCalls);
         IndentedEvent(_leftTriggerPressureCalls);
       }
 
@@ -127,6 +145,8 @@ namespace TawVR.Editor
       if (editingLeftGrip)
       {
         IndentedEvent(_leftGripCalls);
+        IndentedEvent(_leftGripReleasedCalls);
+        IndentedEvent(_leftGripHoldCalls);
         IndentedEvent(_leftGripPressureCalls);
       }
 
@@ -157,6 +177,8 @@ namespace TawVR.Editor
       if (editingRightTrigger)
       {
         IndentedEvent(_rightTriggerCalls);
+        IndentedEvent(_rightTriggerReleasedCalls);
+        IndentedEvent(_rightTriggerHoldCalls);
         IndentedEvent(_rightTriggerPressureCalls);
       }
 
@@ -164,6 +186,8 @@ namespace TawVR.Editor
       if (editingRightGrip)
       {
         IndentedEvent(_rightGripCalls);
+        IndentedEvent(_rightGripReleasedCalls);
+        IndentedEvent(_rightGripHoldCalls);
         IndentedEvent(_rightGripPressureCalls);
       }
 
