@@ -9,10 +9,13 @@ namespace TawVR
 {
   public class VrRig : MonoBehaviour
   {
-    [Title("Components"), BoxGroup] public Camera mainCamera;
-    [BoxGroup] public LineRenderer rightPointer;
-    [BoxGroup] public LineRenderer leftPointer;
-    [BoxGroup] public Animator fadeOutAnimator;
+    [Title("Components")]
+    [BoxGroup] public LineRenderer rightLineRenderer;
+    [BoxGroup] public LineRenderer leftLineRenderer;
+    [Space(8)]
+    [BoxGroup] public Camera hmd;
+    [BoxGroup] public Grabber leftController;
+    [BoxGroup] public Grabber rightController;
 
     [Title("General Settings")]
     [BoxGroup, Tooltip("Checks for stairs, steep hills and colliders, doesnt allow passage thru walls and floors.")]
@@ -63,8 +66,12 @@ namespace TawVR
     [HideInInspector] public UnityEvent buttonXClick;
     [HideInInspector] public UnityEvent buttonYClick;
     [HideInInspector] public UnityEvent leftTriggerClick;
+    [HideInInspector] public UnityEvent leftTriggerRelease;
+    [HideInInspector] public UnityEvent leftTriggerHold;
     [HideInInspector] public UnityFloatEvent leftTriggerPressure;
     [HideInInspector] public UnityEvent leftGripClick;
+    [HideInInspector] public UnityEvent leftGripRelease;
+    [HideInInspector] public UnityEvent leftGripHold;
     [HideInInspector] public UnityFloatEvent leftGripPressure;
     
     [HideInInspector] public UnityVector2Event rightJoystickAxis;
@@ -72,8 +79,12 @@ namespace TawVR
     [HideInInspector] public UnityEvent buttonAClick;
     [HideInInspector] public UnityEvent buttonBClick;
     [HideInInspector] public UnityEvent rightTriggerClick;
+    [HideInInspector] public UnityEvent rightTriggerRelease;
+    [HideInInspector] public UnityEvent rightTriggerHold;
     [HideInInspector] public UnityFloatEvent rightTriggerPressure;
     [HideInInspector] public UnityEvent rightGripClick;
+    [HideInInspector] public UnityEvent rightGripRelease;
+    [HideInInspector] public UnityEvent rightGripHold;
     [HideInInspector] public UnityFloatEvent rightGripPressure;
     
 
@@ -168,7 +179,7 @@ namespace TawVR
     {
       if (!horizontalMovementEnabled) return;
 
-      Transform mainCameraTransform = mainCamera.transform;
+      Transform mainCameraTransform = hmd.transform;
 
       Vector3 forward = mainCameraTransform.InverseTransformPoint(mainCameraTransform.forward);
       forward.y = 0f;
@@ -215,7 +226,7 @@ namespace TawVR
 
     public void VerticalMovement(Vector2 input)
     {
-      Transform mainCameraTransform = mainCamera.transform;
+      Transform mainCameraTransform = hmd.transform;
 
       if (!verticalMovementEnabled) return;
       Vector3 coordinates = Vector3.up * input.y;
@@ -238,7 +249,7 @@ namespace TawVR
         }
       }
 
-      if (mainCamera.transform.position.y > (floorLevel + .5f) || input.y > 0)
+      if (hmd.transform.position.y > (floorLevel + .5f) || input.y > 0)
       {
         transform.Translate(coordinates * movementSpeed * Time.deltaTime);
       }
