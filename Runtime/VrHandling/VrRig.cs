@@ -10,12 +10,9 @@ namespace TawVR
   public class VrRig : MonoBehaviour
   {
     [Title("Components")]
-    [BoxGroup] public LineRenderer rightLineRenderer;
-    [BoxGroup] public LineRenderer leftLineRenderer;
-    [Space(8)]
-    [BoxGroup] public Camera hmd;
-    [BoxGroup] public Grabber leftController;
-    [BoxGroup] public Grabber rightController;
+    [BoxGroup, Required] public Camera mainCamera;
+    [BoxGroup] public Controller leftController;
+    [BoxGroup] public Controller rightController;
 
     [Title("General Settings")]
     [BoxGroup, Tooltip("Checks for stairs, steep hills and colliders, doesnt allow passage thru walls and floors.")]
@@ -102,21 +99,26 @@ namespace TawVR
         throw new Exception("Controllers were not found.");
       }
 
-      foreach (InputDevice controller in _inputDevices)
+      foreach (InputDevice inputDevice in _inputDevices)
       {
-        if ((controller.characteristics & InputDeviceCharacteristics.Left) != 0)
+        if ((inputDevice.characteristics & InputDeviceCharacteristics.Left) != 0)
         {
-          _leftController = new Controller(controller);
+          _leftController.Init(inputDevice);
         }
 
-        if ((controller.characteristics & InputDeviceCharacteristics.Right) != 0)
+        if ((inputDevice.characteristics & InputDeviceCharacteristics.Right) != 0)
         {
-          _rightController = new Controller(controller);
+          _rightController.Init(inputDevice);
         }
       }
     }
 
     private void Update()
+    {
+      GetControllerData();
+    }
+
+    private void GetControllerData()
     {
       if (_leftController != null)
       {
@@ -179,7 +181,7 @@ namespace TawVR
     {
       if (!horizontalMovementEnabled) return;
 
-      Transform mainCameraTransform = hmd.transform;
+      Transform mainCameraTransform = mainCamera.transform;
 
       Vector3 forward = mainCameraTransform.InverseTransformPoint(mainCameraTransform.forward);
       forward.y = 0f;
@@ -226,7 +228,7 @@ namespace TawVR
 
     public void VerticalMovement(Vector2 input)
     {
-      Transform mainCameraTransform = hmd.transform;
+      Transform mainCameraTransform = mainCamera.transform;
 
       if (!verticalMovementEnabled) return;
       Vector3 coordinates = Vector3.up * input.y;
@@ -249,7 +251,7 @@ namespace TawVR
         }
       }
 
-      if (hmd.transform.position.y > (floorLevel + .5f) || input.y > 0)
+      if (mainCamera.transform.position.y > (floorLevel + .5f) || input.y > 0)
       {
         transform.Translate(coordinates * movementSpeed * Time.deltaTime);
       }

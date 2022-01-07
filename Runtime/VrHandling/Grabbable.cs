@@ -18,7 +18,7 @@ namespace TawVR
     public UnityEvent onReleased;
 
     [Title("Dynamic")] 
-    [ReadOnly] public Grabber grabbedBy;
+    [ReadOnly] public Controller grabbedBy;
 
     [Title("Privates")] 
     private Vector3 _originalPosition;
@@ -44,13 +44,13 @@ namespace TawVR
     /// <summary>
     /// Called when the item is picked up
     /// </summary>
-    public void OnGrabbed(Grabber grabber)
+    public void OnGrabbed(Controller grabber)
     {
       if (!canBeGrabbed) return; // If it can't be grabbed, we have nothing to do here
 
       if (IsGrabbed) // Logic for when the item is being held by other grabber -> transfer from one hand to another
       {
-        grabbedBy.Regrab(grabber); // Changes the grabbing events to the second grabber
+        grabbedBy.RegrabObject(grabber); // Changes the grabbing events to the second grabber
       }
       else
       {
