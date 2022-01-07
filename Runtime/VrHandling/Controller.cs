@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.XR;
@@ -101,6 +102,7 @@ namespace TawVR
         hmd.transform.position = _teleportLocation;
         _canTeleport = false;
       }
+
       lineRenderer.enabled = false;
     }
 
@@ -108,32 +110,88 @@ namespace TawVR
     {
       if (hmd.teleportationEnabled && _attemptTeleport)
       {
-        _position = _transform.position;
-        Ray raycast = new Ray(_position, _transform.forward.normalized);
-        bool rayHit = Physics.Raycast(raycast, out RaycastHit hitObject, float.MaxValue);
-
-        if (rayHit)
+        if (hmd.useBallisticTeleportation)
         {
-          lineRenderer.startColor = hmd.canTeleportColor;
-          lineRenderer.endColor = hmd.canTeleportColor;
-          lineRenderer.SetPositions(new Vector3[]
+          float decayRate = 0.025f;
+          float stepDistance = 1f;
+          int maxSteps = 128;
+          int currentSteps = 0;
+          bool rayHit = false;
+
+          Vector3 startingPosition = _position;
+          Vector3 pointingDirection = _transform.forward.normalized;
+          Vector3 currentPosition = startingPosition;
+
+          List<Vector3> positions = new List<Vector3> { startingPosition };
+          lineRenderer.positionCount = 1;
+
+
+          while (currentSteps <= maxSteps && currentPosition.y >= hmd.floorLevel && !rayHit)
           {
-            _position,
-            hitObject.point
-          });
+            Vector3 decayedVector = Mathf.Clamp01(decayRate * currentSteps) * Vector3.down +
+                                    pointingDirection * Mathf.Clamp01(1 - decayRate * currentSteps);
+
+            decayedVector = decayedVector.normalized * stepDistance;
+
+
+            Ray raycast = new Ray(currentPosition, decayedVector);
+            Physics.Raycast(raycast, out RaycastHit hitObject, stepDistance);
+
+            rayHit = !(hitObject.transform is null);
+
+            currentPosition += decayedVector;
+
+            currentSteps++;
+
+            positions.Add(currentPosition);
+
+            lineRenderer.positionCount++;
+            lineRenderer.SetPositions(positions.ToArray());
+          }
+
           lineRenderer.enabled = true;
-          _teleportLocation = hitObject.point;
-          _canTeleport = true;
+
+          if (rayHit)
+          {
+            lineRenderer.startColor = hmd.canTeleportColor;
+            lineRenderer.endColor = hmd.canTeleportColor;
+            _canTeleport = true;
+          }
+          else
+          {
+            lineRenderer.startColor = hmd.cannotTeleportColor;
+            lineRenderer.endColor = hmd.cannotTeleportColor;
+          }
         }
         else
         {
-          lineRenderer.startColor = hmd.cannotTeleportColor;
-          lineRenderer.endColor = hmd.cannotTeleportColor;
-          lineRenderer.SetPositions(new Vector3[]
+          _position = _transform.position;
+          Ray raycast = new Ray(_position, _transform.forward.normalized);
+          bool rayHit = Physics.Raycast(raycast, out RaycastHit hitObject, float.MaxValue);
+
+          if (rayHit)
           {
-            _position, _transform.forward.normalized
-          });
-          lineRenderer.enabled = true;
+            lineRenderer.startColor = hmd.canTeleportColor;
+            lineRenderer.endColor = hmd.canTeleportColor;
+            lineRenderer.SetPositions(new Vector3[]
+            {
+              _position,
+              hitObject.point
+            });
+            lineRenderer.enabled = true;
+            _teleportLocation = hitObject.point;
+            _canTeleport = true;
+          }
+          else
+          {
+            lineRenderer.startColor = hmd.cannotTeleportColor;
+            lineRenderer.endColor = hmd.cannotTeleportColor;
+            lineRenderer.SetPositions(new Vector3[]
+            {
+              _position, _transform.forward.normalized
+            });
+            lineRenderer.enabled = true;
+          }
         }
       }
     }
