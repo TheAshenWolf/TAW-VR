@@ -251,10 +251,22 @@ namespace TawVR.Editor
       GUILayout.Label("<b>Toolbox</b>", _centeredLabel);
       SirenixEditorGUI.EndBoxHeader();
 
-      if (GUILayout.Button("Load preset"))
+      if (GUI.Button(new Rect(16, 40, 200, 48), "Select or save a preset"))
       {
-        PresetSelector.ShowSelector(new Object[] { rigInstance }, null, false);
+        PresetSelector.ShowSelector(new Object[] { rigInstance }, null, true);
       }
+      
+      /*if (GUI.Button(new Rect(16, 120, 200, 48), "Tool"))
+      {
+      }
+      
+      if (GUI.Button(new Rect(240, 40, 200, 48), "Tool"))
+      {
+      }
+      
+      if (GUI.Button(new Rect(240, 120, 200, 48), "Tool"))
+      {
+      }*/
 
       SirenixEditorGUI.EndBox();
       GUILayout.EndArea();
