@@ -11,6 +11,7 @@ namespace TawVR
     public LineRenderer lineRenderer;
     public InputDevice device;
     public ControllerData data;
+    public VrHardware hardwarePart;
     [Required] public VrRig hmd;
     private Transform _transform;
     private bool _teleportReady;
@@ -18,11 +19,19 @@ namespace TawVR
     private bool _attemptTeleport;
     private Vector3 _teleportLocation;
     private Vector3 _position;
+    private bool _onTriggerPressureDown;
+    private bool _onGripPressureDown;
+    private float _clickValue;
+    private float _releaseValue;
 
-    public void Init(InputDevice inputDevice)
+    public void Init(InputDevice inputDevice, VrHardware hwPart)
     {
       device = inputDevice;
       data = new ControllerData();
+      hardwarePart = hwPart;
+
+      _clickValue = hmd.clickValue;
+      _releaseValue = hmd.releaseValue;
     }
 
     private void Start()
@@ -34,6 +43,7 @@ namespace TawVR
     private void Update()
     {
       Teleportation();
+      HandleCalls();
     }
 
     public void SendHaptic(float duration = 1f)
@@ -193,6 +203,84 @@ namespace TawVR
             lineRenderer.enabled = true;
           }
         }
+      }
+    }
+
+    #endregion
+
+    #region Handles
+
+    private void HandleCalls()
+    {
+      if (hardwarePart == VrHardware.LeftController)
+      {
+        if (data.gripClick) hmd.leftGripClick?.Invoke();
+        if (data.joystickClick) hmd.leftJoystickClick?.Invoke();
+        if (data.triggerClick) hmd.leftTriggerClick?.Invoke();
+        if (data.axButtonClick) hmd.buttonXClick?.Invoke();
+        if (data.byButtonClick) hmd.buttonYClick?.Invoke();
+
+        if (!_onTriggerPressureDown && _clickValue < data.triggerPressure)
+        {
+          _onTriggerPressureDown = true;
+          hmd.leftTriggerClick?.Invoke();
+        }
+        else if (_onTriggerPressureDown && _releaseValue > data.triggerPressure)
+        {
+          _onTriggerPressureDown = false;
+          hmd.leftTriggerRelease?.Invoke();
+        }
+
+        if (!_onGripPressureDown && _clickValue < data.gripPressure)
+        {
+          _onTriggerPressureDown = true;
+          hmd.leftGripClick?.Invoke();
+        }
+        else if (_onGripPressureDown && _releaseValue > data.gripPressure)
+        {
+          _onTriggerPressureDown = false;
+          hmd.leftGripRelease?.Invoke();
+        }
+
+        if (_clickValue < data.triggerPressure) hmd.leftTriggerHold?.Invoke();
+        if (_clickValue < data.gripPressure) hmd.leftGripHold?.Invoke();
+
+        hmd.leftJoystickAxis?.Invoke(data.joystickAxis);
+      }
+      else if (hardwarePart == VrHardware.RightController)
+      {
+        if (data.gripClick) hmd.rightGripClick?.Invoke();
+        if (data.joystickClick) hmd.rightJoystickClick?.Invoke();
+        if (data.triggerClick) hmd.rightTriggerClick?.Invoke();
+        if (data.axButtonClick) hmd.buttonAClick?.Invoke();
+        if (data.byButtonClick) hmd.buttonBClick?.Invoke();
+
+        if (!_onTriggerPressureDown && _clickValue < data.triggerPressure)
+        {
+          _onTriggerPressureDown = true;
+          hmd.rightTriggerClick?.Invoke();
+        }
+        else if (_onTriggerPressureDown && _releaseValue > data.triggerPressure)
+        {
+          _onTriggerPressureDown = false;
+          hmd.rightTriggerRelease?.Invoke();
+        }
+
+        if (!_onGripPressureDown && _clickValue < data.gripPressure)
+        {
+          _onTriggerPressureDown = true;
+          hmd.rightGripClick?.Invoke();
+        }
+        else if (_onGripPressureDown && _releaseValue > data.gripPressure)
+        {
+          _onTriggerPressureDown = false;
+          hmd.rightGripRelease?.Invoke();
+        }
+
+        if (_clickValue < data.triggerPressure) hmd.rightTriggerHold?.Invoke();
+        if (_clickValue < data.gripPressure) hmd.rightGripHold?.Invoke();
+
+        hmd.rightJoystickAxis?.Invoke(data.joystickAxis);
       }
     }
 

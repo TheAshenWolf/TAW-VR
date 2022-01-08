@@ -39,6 +39,12 @@ namespace TawVR
     [BoxGroup, Tooltip("Speed used for movement")]
     public float movementSpeed;
 
+    [BoxGroup, Range(0, 1)] 
+    public float releaseValue = 0.2f;
+    [BoxGroup, Range(0, 1)] 
+    public float clickValue = 0.8f;
+    
+
     // -----
     [Title("Controls"), BoxGroup, Tooltip("If false, user can not teleport.")]
     public bool teleportationEnabled;
@@ -103,12 +109,12 @@ namespace TawVR
       {
         if ((inputDevice.characteristics & InputDeviceCharacteristics.Left) != 0)
         {
-          _leftController.Init(inputDevice);
+          _leftController.Init(inputDevice, VrHardware.LeftController);
         }
 
         if ((inputDevice.characteristics & InputDeviceCharacteristics.Right) != 0)
         {
-          _rightController.Init(inputDevice);
+          _rightController.Init(inputDevice, VrHardware.RightController);
         }
       }
     }
