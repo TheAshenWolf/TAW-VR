@@ -23,6 +23,7 @@ namespace TawVR
     private bool _onGripPressureDown;
     private float _clickValue;
     private float _releaseValue;
+    private bool _initialized;
 
     public void Init(InputDevice inputDevice, VrHardware hwPart)
     {
@@ -32,6 +33,7 @@ namespace TawVR
 
       _clickValue = hmd.clickValue;
       _releaseValue = hmd.releaseValue;
+      _initialized = true;
     }
 
     private void Start()
@@ -42,6 +44,8 @@ namespace TawVR
 
     private void Update()
     {
+      if (!_initialized) return;
+      
       _transform.localPosition = data.position;
       _transform.localRotation = data.rotation;
       

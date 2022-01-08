@@ -24,12 +24,6 @@ namespace TawVR
     [ShowIf(nameof(advancedColliderDetection)), BoxGroup("ACD"), Tooltip("The bottom-most floor. Doesn't allow movement past this point. Set to -1 to disable.")]
     public float floorLevel;
 
-    [BoxGroup, Tooltip("Swaps the bindings between left and right hand.")]
-    public bool invertHands;
-
-    [BoxGroup, Tooltip("Base color of the pointer"), ColorUsage(true, false)]
-    public Color basePointerColor;
-
     [BoxGroup, Tooltip("Pointer color when user can teleport"), ColorUsage(true, false)]
     public Color canTeleportColor;
 
@@ -102,7 +96,7 @@ namespace TawVR
       InputDevices.GetDevices(_inputDevices);
       if (_inputDevices.Count == 0)
       {
-        //throw new Exception("Controllers were not found.");
+        _inputDevices.Add(new InputDevice());
       }
 
       foreach (InputDevice inputDevice in _inputDevices)
@@ -128,7 +122,7 @@ namespace TawVR
     {
       if (_leftController != null)
       {
-        ref ControllerData controllerData = ref _leftController.data;
+        ControllerData controllerData = new ControllerData();
 
         _leftController.device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
         _leftController.device.TryGetFeatureValue(CommonUsages.devicePosition, out controllerData.position);
@@ -140,10 +134,6 @@ namespace TawVR
         _leftController.device.TryGetFeatureValue(CommonUsages.deviceAngularAcceleration,
           out controllerData.angularAcceleration);
 
-        controllerData = invertHands && _rightController != null
-          ? ref _rightController.data
-          : ref _leftController.data; // Assign button data to rightController; that will cause controls to be flipped
-
         _leftController.device.TryGetFeatureValue(CommonUsages.grip, out controllerData.gripPressure);
         _leftController.device.TryGetFeatureValue(CommonUsages.gripButton, out controllerData.gripClick);
         _leftController.device.TryGetFeatureValue(CommonUsages.trigger, out controllerData.triggerPressure);
@@ -152,11 +142,13 @@ namespace TawVR
         _leftController.device.TryGetFeatureValue(CommonUsages.secondaryButton, out controllerData.byButtonClick);
         _leftController.device.TryGetFeatureValue(CommonUsages.primary2DAxis, out controllerData.joystickAxis);
         _leftController.device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out controllerData.joystickClick);
+
+        _leftController.data = controllerData;
       }
 
       if (_rightController != null)
       {
-        ref ControllerData controllerData = ref _rightController.data;
+        ControllerData controllerData = new ControllerData();
 
         _rightController.device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
         _rightController.device.TryGetFeatureValue(CommonUsages.devicePosition, out controllerData.position);
@@ -168,10 +160,6 @@ namespace TawVR
         _rightController.device.TryGetFeatureValue(CommonUsages.deviceAngularAcceleration,
           out controllerData.angularAcceleration);
 
-        controllerData = invertHands && _leftController != null
-          ? ref _leftController.data
-          : ref _rightController.data; // Assign button data to rightController; that will cause controls to be flipped
-
         _rightController.device.TryGetFeatureValue(CommonUsages.grip, out controllerData.gripPressure);
         _rightController.device.TryGetFeatureValue(CommonUsages.gripButton, out controllerData.gripClick);
         _rightController.device.TryGetFeatureValue(CommonUsages.trigger, out controllerData.triggerPressure);
@@ -180,6 +168,8 @@ namespace TawVR
         _rightController.device.TryGetFeatureValue(CommonUsages.secondaryButton, out controllerData.byButtonClick);
         _rightController.device.TryGetFeatureValue(CommonUsages.primary2DAxis, out controllerData.joystickAxis);
         _rightController.device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out controllerData.joystickClick);
+
+        _rightController.data = controllerData;
       }
     }
 
