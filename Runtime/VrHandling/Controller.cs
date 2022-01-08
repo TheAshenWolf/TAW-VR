@@ -98,6 +98,19 @@ namespace TawVR
     #region Teleportation
 
     [Button]
+    public void ToggleTeleport() // For use with a button without release handler
+    {
+      if (!_attemptTeleport)
+      {
+        StartTeleport();
+      }
+      else
+      {
+        ConfirmTeleport();
+      }
+    }
+
+    [Button]
     public void StartTeleport() // Should be assigned onHold
     {
       _attemptTeleport = true;
