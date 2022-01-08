@@ -1,8 +1,10 @@
+using System;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEditor.Presets;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace TawVR.Editor
 {
@@ -256,14 +258,21 @@ namespace TawVR.Editor
         PresetSelector.ShowSelector(new Object[] { rigInstance }, null, true);
       }
       
-      /*if (GUI.Button(new Rect(16, 120, 200, 48), "Tool"))
+      /*
+      if (GUI.Button(new Rect(16, 120, 200, 48), "Tool"))
       {
-      }
+        throw new NotImplementedException()
+      }*/
       
-      if (GUI.Button(new Rect(240, 40, 200, 48), "Tool"))
+      
+      if (GUI.Button(new Rect(240, 40, 200, 48), "Installation guide"))
       {
+        throw new NotImplementedException();
+        
+        // Go to Build Settings -> Player settings -> XR and check VR supported
+        // You might need to disable the Vulkan API. In order to do so, go to Player Settings -> Other and remove Vulkan from the Graphics API list
       }
-      
+      /*
       if (GUI.Button(new Rect(240, 120, 200, 48), "Tool"))
       {
       }*/

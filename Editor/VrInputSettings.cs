@@ -51,8 +51,8 @@ namespace TawVR.Editor
     private SerializedProperty _rightGripReleasedCalls;
     private SerializedProperty _rightGripHoldCalls;
     private SerializedProperty _rightGripPressureCalls;
-
-    protected override void OnEnable()
+    
+    public void Init(VrRig instance)
     {
       _leftJoystickCalls = serializedObject.FindProperty(nameof(rigInstance.leftJoystickAxis));
       _leftJoystickClickCalls = serializedObject.FindProperty(nameof(rigInstance.leftJoystickClick));
@@ -79,10 +79,7 @@ namespace TawVR.Editor
       _rightGripReleasedCalls = serializedObject.FindProperty(nameof(rigInstance.rightGripRelease));
       _rightGripHoldCalls = serializedObject.FindProperty(nameof(rigInstance.rightGripHold));
       _rightGripPressureCalls = serializedObject.FindProperty(nameof(rigInstance.rightGripPressure));
-    }
-
-    public void Init(VrRig instance)
-    {
+      
       rigInstance = instance;
     }
 

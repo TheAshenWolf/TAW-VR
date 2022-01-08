@@ -102,7 +102,7 @@ namespace TawVR
       InputDevices.GetDevices(_inputDevices);
       if (_inputDevices.Count == 0)
       {
-        throw new Exception("Controllers were not found.");
+        //throw new Exception("Controllers were not found.");
       }
 
       foreach (InputDevice inputDevice in _inputDevices)
