@@ -42,6 +42,9 @@ namespace TawVR
 
     private void Update()
     {
+      _transform.localPosition = data.position;
+      _transform.localRotation = data.rotation;
+      
       Teleportation();
       HandleCalls();
     }
