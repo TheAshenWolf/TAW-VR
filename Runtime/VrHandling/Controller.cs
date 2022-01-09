@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -69,6 +70,7 @@ namespace TawVR
 
     private void OnTriggerEnter(Collider other)
     {
+      SendHaptic();
       Grabbable grabbable = other.GetComponent<Grabbable>();
       if (grabbable == null) return;
 
@@ -77,6 +79,7 @@ namespace TawVR
 
     private void OnCollisionEnter(Collision collision)
     {
+      SendHaptic();
       Grabbable grabbable = collision.collider.GetComponent<Grabbable>();
       if (grabbable == null) return;
 
