@@ -54,8 +54,6 @@ namespace TawVR
     
     [Title("Privates")] 
     private List<InputDevice> _inputDevices = new List<InputDevice>();
-    private Controller _leftController = null;
-    private Controller _rightController = null;
 
     [Title("Calls")]
     [HideInInspector] public UnityVector2Event leftJoystickAxis;
@@ -93,22 +91,19 @@ namespace TawVR
     [Button]
     public void UpdateDevices()
     {
+      _inputDevices = new List<InputDevice>();
       InputDevices.GetDevices(_inputDevices);
-      if (_inputDevices.Count == 0)
-      {
-        _inputDevices.Add(new InputDevice());
-      }
 
-      foreach (InputDevice inputDevice in _inputDevices)
+        foreach (InputDevice inputDevice in _inputDevices)
       {
         if ((inputDevice.characteristics & InputDeviceCharacteristics.Left) != 0)
         {
-          _leftController.Init(inputDevice, VrHardware.LeftController);
+          leftController.Init(inputDevice, VrHardware.LeftController);
         }
 
         if ((inputDevice.characteristics & InputDeviceCharacteristics.Right) != 0)
         {
-          _rightController.Init(inputDevice, VrHardware.RightController);
+          rightController.Init(inputDevice, VrHardware.RightController);
         }
       }
     }
@@ -120,56 +115,56 @@ namespace TawVR
 
     private void GetControllerData()
     {
-      if (_leftController != null)
+      if (leftController != null)
       {
         ControllerData controllerData = new ControllerData();
 
-        _leftController.device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
-        _leftController.device.TryGetFeatureValue(CommonUsages.devicePosition, out controllerData.position);
-        _leftController.device.TryGetFeatureValue(CommonUsages.deviceRotation, out controllerData.rotation);
-        _leftController.device.TryGetFeatureValue(CommonUsages.deviceVelocity, out controllerData.velocity);
-        _leftController.device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
-        _leftController.device.TryGetFeatureValue(CommonUsages.deviceAngularVelocity,
+        leftController.device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
+        leftController.device.TryGetFeatureValue(CommonUsages.devicePosition, out controllerData.position);
+        leftController.device.TryGetFeatureValue(CommonUsages.deviceRotation, out controllerData.rotation);
+        leftController.device.TryGetFeatureValue(CommonUsages.deviceVelocity, out controllerData.velocity);
+        leftController.device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
+        leftController.device.TryGetFeatureValue(CommonUsages.deviceAngularVelocity,
           out controllerData.angularVelocity);
-        _leftController.device.TryGetFeatureValue(CommonUsages.deviceAngularAcceleration,
+        leftController.device.TryGetFeatureValue(CommonUsages.deviceAngularAcceleration,
           out controllerData.angularAcceleration);
 
-        _leftController.device.TryGetFeatureValue(CommonUsages.grip, out controllerData.gripPressure);
-        _leftController.device.TryGetFeatureValue(CommonUsages.gripButton, out controllerData.gripClick);
-        _leftController.device.TryGetFeatureValue(CommonUsages.trigger, out controllerData.triggerPressure);
-        _leftController.device.TryGetFeatureValue(CommonUsages.triggerButton, out controllerData.triggerClick);
-        _leftController.device.TryGetFeatureValue(CommonUsages.primaryButton, out controllerData.axButtonClick);
-        _leftController.device.TryGetFeatureValue(CommonUsages.secondaryButton, out controllerData.byButtonClick);
-        _leftController.device.TryGetFeatureValue(CommonUsages.primary2DAxis, out controllerData.joystickAxis);
-        _leftController.device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out controllerData.joystickClick);
+        leftController.device.TryGetFeatureValue(CommonUsages.grip, out controllerData.gripPressure);
+        leftController.device.TryGetFeatureValue(CommonUsages.gripButton, out controllerData.gripClick);
+        leftController.device.TryGetFeatureValue(CommonUsages.trigger, out controllerData.triggerPressure);
+        leftController.device.TryGetFeatureValue(CommonUsages.triggerButton, out controllerData.triggerClick);
+        leftController.device.TryGetFeatureValue(CommonUsages.primaryButton, out controllerData.axButtonClick);
+        leftController.device.TryGetFeatureValue(CommonUsages.secondaryButton, out controllerData.byButtonClick);
+        leftController.device.TryGetFeatureValue(CommonUsages.primary2DAxis, out controllerData.joystickAxis);
+        leftController.device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out controllerData.joystickClick);
 
-        _leftController.data = controllerData;
+        leftController.data = controllerData;
       }
 
-      if (_rightController != null)
+      if (rightController != null)
       {
         ControllerData controllerData = new ControllerData();
 
-        _rightController.device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
-        _rightController.device.TryGetFeatureValue(CommonUsages.devicePosition, out controllerData.position);
-        _rightController.device.TryGetFeatureValue(CommonUsages.deviceRotation, out controllerData.rotation);
-        _rightController.device.TryGetFeatureValue(CommonUsages.deviceVelocity, out controllerData.velocity);
-        _rightController.device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
-        _rightController.device.TryGetFeatureValue(CommonUsages.deviceAngularVelocity,
+        rightController.device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
+        rightController.device.TryGetFeatureValue(CommonUsages.devicePosition, out controllerData.position);
+        rightController.device.TryGetFeatureValue(CommonUsages.deviceRotation, out controllerData.rotation);
+        rightController.device.TryGetFeatureValue(CommonUsages.deviceVelocity, out controllerData.velocity);
+        rightController.device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
+        rightController.device.TryGetFeatureValue(CommonUsages.deviceAngularVelocity,
           out controllerData.angularVelocity);
-        _rightController.device.TryGetFeatureValue(CommonUsages.deviceAngularAcceleration,
+        rightController.device.TryGetFeatureValue(CommonUsages.deviceAngularAcceleration,
           out controllerData.angularAcceleration);
 
-        _rightController.device.TryGetFeatureValue(CommonUsages.grip, out controllerData.gripPressure);
-        _rightController.device.TryGetFeatureValue(CommonUsages.gripButton, out controllerData.gripClick);
-        _rightController.device.TryGetFeatureValue(CommonUsages.trigger, out controllerData.triggerPressure);
-        _rightController.device.TryGetFeatureValue(CommonUsages.triggerButton, out controllerData.triggerClick);
-        _rightController.device.TryGetFeatureValue(CommonUsages.primaryButton, out controllerData.axButtonClick);
-        _rightController.device.TryGetFeatureValue(CommonUsages.secondaryButton, out controllerData.byButtonClick);
-        _rightController.device.TryGetFeatureValue(CommonUsages.primary2DAxis, out controllerData.joystickAxis);
-        _rightController.device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out controllerData.joystickClick);
+        rightController.device.TryGetFeatureValue(CommonUsages.grip, out controllerData.gripPressure);
+        rightController.device.TryGetFeatureValue(CommonUsages.gripButton, out controllerData.gripClick);
+        rightController.device.TryGetFeatureValue(CommonUsages.trigger, out controllerData.triggerPressure);
+        rightController.device.TryGetFeatureValue(CommonUsages.triggerButton, out controllerData.triggerClick);
+        rightController.device.TryGetFeatureValue(CommonUsages.primaryButton, out controllerData.axButtonClick);
+        rightController.device.TryGetFeatureValue(CommonUsages.secondaryButton, out controllerData.byButtonClick);
+        rightController.device.TryGetFeatureValue(CommonUsages.primary2DAxis, out controllerData.joystickAxis);
+        rightController.device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out controllerData.joystickClick);
 
-        _rightController.data = controllerData;
+        rightController.data = controllerData;
       }
     }
 

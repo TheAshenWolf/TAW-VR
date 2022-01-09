@@ -46,6 +46,7 @@ namespace TawVR
     {
       if (!_initialized) return;
       
+      _position = _transform.position;
       _transform.localPosition = data.position;
       _transform.localRotation = data.rotation;
       
@@ -195,7 +196,6 @@ namespace TawVR
         }
         else
         {
-          _position = _transform.position;
           Ray raycast = new Ray(_position, _transform.forward.normalized);
           bool rayHit = Physics.Raycast(raycast, out RaycastHit hitObject, float.MaxValue);
 
