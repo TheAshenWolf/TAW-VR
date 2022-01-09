@@ -75,9 +75,22 @@ namespace TawVR
       _proximityItem = other;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+      Grabbable grabbable = collision.collider.GetComponent<Grabbable>();
+      if (grabbable == null) return;
+
+      _proximityItem = collision.collider;
+    }
+
     private void OnTriggerExit(Collider other)
     {
       if (_proximityItem == other) _proximityItem = null;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+      if (_proximityItem == collision.collider) _proximityItem = null;
     }
 
     public void GrabObject() // Attempts to grab the item that is being interacted with
