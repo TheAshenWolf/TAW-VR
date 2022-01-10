@@ -186,6 +186,11 @@ namespace TawVR
 
             rayHit = !(hitObject.transform is null);
 
+            if (rayHit)
+            {
+              _teleportLocation = hitObject.point;
+            }
+
             currentPosition += decayedVector;
 
             currentSteps++;

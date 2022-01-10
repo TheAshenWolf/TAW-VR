@@ -54,6 +54,7 @@ namespace TawVR
     
     [Title("Privates")] 
     private List<InputDevice> _inputDevices = new List<InputDevice>();
+    private InputDevice _cameraDevice;
 
     [Title("Calls")]
     [HideInInspector] public UnityVector2Event leftJoystickAxis;
@@ -81,7 +82,8 @@ namespace TawVR
     [HideInInspector] public UnityEvent rightGripRelease;
     [HideInInspector] public UnityEvent rightGripHold;
     [HideInInspector] public UnityFloatEvent rightGripPressure;
-    
+   
+
 
     private void Awake()
     {
@@ -105,12 +107,24 @@ namespace TawVR
         {
           rightController.Init(inputDevice, VrHardware.RightController);
         }
+
+        if ((inputDevice.characteristics & InputDeviceCharacteristics.Camera) != 0)
+        {
+          _cameraDevice = inputDevice;
+        }
       }
     }
 
     private void Update()
     {
       GetControllerData();
+      SetCameraHeight();
+    }
+
+    private void SetCameraHeight()
+    {
+      _cameraDevice.TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 cameraPosition);
+      mainCamera.transform.localPosition = cameraPosition;
     }
 
     private void GetControllerData()
@@ -174,11 +188,11 @@ namespace TawVR
 
       Transform mainCameraTransform = mainCamera.transform;
 
-      Vector3 forward = mainCameraTransform.InverseTransformPoint(mainCameraTransform.forward);
+      Vector3 forward = mainCameraTransform.forward;
       forward.y = 0f;
       forward.Normalize();
 
-      Vector3 right = mainCameraTransform.InverseTransformPoint(mainCameraTransform.right);
+      Vector3 right = mainCameraTransform.right;
       right.y = 0f;
       right.Normalize();
 
