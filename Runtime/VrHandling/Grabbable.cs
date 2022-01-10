@@ -87,7 +87,8 @@ namespace TawVR
       }
       else
       {
-        _rigidbody.velocity = grabbedBy.GetComponent<Rigidbody>().velocity;
+        _rigidbody.velocity = grabbedBy.data.velocity;
+        _rigidbody.angularVelocity = grabbedBy.data.angularVelocity;
       }
 
       onReleased?.Invoke();
