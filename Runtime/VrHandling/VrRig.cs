@@ -107,24 +107,12 @@ namespace TawVR
         {
           rightController.Init(inputDevice, VrHardware.RightController);
         }
-
-        if ((inputDevice.characteristics & InputDeviceCharacteristics.Camera) != 0)
-        {
-          _cameraDevice = inputDevice;
-        }
       }
     }
 
     private void Update()
     {
       GetControllerData();
-      SetCameraHeight();
-    }
-
-    private void SetCameraHeight()
-    {
-      _cameraDevice.TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 cameraPosition);
-      mainCamera.transform.localPosition = cameraPosition;
     }
 
     private void GetControllerData()
