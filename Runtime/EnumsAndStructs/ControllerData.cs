@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace TawVR
 {
+  [Serializable]
   public struct ControllerData
   {
     public Vector3 position;
@@ -12,15 +14,15 @@ namespace TawVR
     public Vector3 angularVelocity;
 
     public float gripPressure;
-    public bool gripClick;
+    public bool gripHold; // true when held down
 
     public float triggerPressure;
-    public bool triggerClick;
+    public bool triggerHold; // true when finger is touching the button (what the fuck Oculus?)
 
-    public bool axButtonClick;
-    public bool byButtonClick;
-
+    public bool axButtonHold; // true when held down
+    public bool byButtonHold; // true when held down
+    
     public Vector2 joystickAxis;
-    public bool joystickClick;
+    public bool joystickHold; // true when held down
   }
 }

@@ -259,7 +259,7 @@ namespace TawVR.Editor
       }
       
       /*
-      if (GUI.Button(new Rect(16, 120, 200, 48), "Tool"))
+      if (GUI.Button(new Rect(16, 120, 200, 48), "Generate text-based controls tutorial"))
       {
         throw new NotImplementedException()
       }*/

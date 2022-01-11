@@ -24,7 +24,11 @@ namespace TawVR
     private bool _onGripPressureDown;
     private float _clickValue;
     private float _releaseValue;
-    private bool _initialized;
+    public bool initialized;
+
+    private bool _joystickReset;
+    private bool _axReset;
+    private bool _byReset;
 
     public void Init(InputDevice inputDevice, VrHardware hwPart)
     {
@@ -34,7 +38,7 @@ namespace TawVR
 
       _clickValue = hmd.clickValue;
       _releaseValue = hmd.releaseValue;
-      _initialized = true;
+      initialized = true;
     }
 
     private void Start()
@@ -45,7 +49,7 @@ namespace TawVR
 
     private void Update()
     {
-      if (!_initialized) return;
+      if (!initialized) return;
       
       _position = _transform.position;
       _transform.localPosition = data.position;
@@ -64,7 +68,7 @@ namespace TawVR
 
     public Collider triggerCollider;
 
-    private Grabbable _grabbedObject;
+    public Grabbable grabbedObject;
     private Collider _proximityItem;
 
 
@@ -100,39 +104,21 @@ namespace TawVR
     {
       if (_proximityItem == null) return;
 
-      _grabbedObject = _proximityItem.GetComponent<Grabbable>();
-      _grabbedObject.OnGrabbed(this);
-    }
-
-    public void RegrabObject(Controller grabber) // Transfers grabbed item from one hand to another
-    {
-      if (grabber == this) return;
+      grabbedObject = _proximityItem.GetComponent<Grabbable>();
+      grabbedObject.OnGrabbed(this);
     }
 
     public void ReleaseObject() // Drops the held item
     {
-      if (_grabbedObject == null) return;
+      if (grabbedObject == null) return;
 
-      _grabbedObject.OnReleased();
-      _grabbedObject = null;
+      grabbedObject.OnReleased();
+      grabbedObject = null;
     }
 
     #endregion
 
     #region Teleportation
-
-    [Button]
-    public void ToggleTeleport() // For use with a button without release handler
-    {
-      if (!_attemptTeleport)
-      {
-        StartTeleport();
-      }
-      else
-      {
-        ConfirmTeleport();
-      }
-    }
 
     [Button]
     public void StartTeleport() // Should be assigned onHold
@@ -255,11 +241,11 @@ namespace TawVR
     {
       if (hardwarePart == VrHardware.LeftController)
       {
-        if (data.gripClick) hmd.leftGripClick?.Invoke();
-        if (data.joystickClick) hmd.leftJoystickClick?.Invoke();
-        if (data.triggerClick) hmd.leftTriggerClick?.Invoke();
-        if (data.axButtonClick) hmd.buttonXClick?.Invoke();
-        if (data.byButtonClick) hmd.buttonYClick?.Invoke();
+        if (data.gripHold) hmd.leftGripHold?.Invoke();
+        if (data.joystickHold) hmd.leftJoystickHold?.Invoke();
+        if (data.triggerHold && _clickValue < data.triggerPressure) hmd.leftTriggerHold?.Invoke();
+        if (data.axButtonHold) hmd.buttonXHold?.Invoke();
+        if (data.byButtonHold) hmd.buttonYHold?.Invoke();
 
         if (!_onTriggerPressureDown && _clickValue < data.triggerPressure)
         {
@@ -283,18 +269,48 @@ namespace TawVR
           hmd.leftGripRelease?.Invoke();
         }
 
-        if (_clickValue < data.triggerPressure) hmd.leftTriggerHold?.Invoke();
-        if (_clickValue < data.gripPressure) hmd.leftGripHold?.Invoke();
+        if (_axReset && data.axButtonHold)
+        {
+          hmd.buttonXClick?.Invoke();
+          _axReset = false;
+        }
+        else if (!data.axButtonHold)
+        {
+          if (!_axReset) hmd.buttonXRelease?.Invoke();
+          _axReset = true;
+        }
+        
+        if (_byReset && data.byButtonHold)
+        {
+          hmd.buttonYClick?.Invoke();
+          _byReset = false;
+        }
+        else if (!data.byButtonHold)
+        {
+          if (!_byReset) hmd.buttonYRelease?.Invoke();
+          _byReset = true;
+        }
+        
+        if (_joystickReset && data.joystickHold)
+        {
+          hmd.leftJoystickClick?.Invoke();
+          _byReset = false;
+        }
+        else if (!data.joystickHold)
+        {
+          if (!_joystickReset) hmd.leftJoystickRelease?.Invoke();
+          _joystickReset = true;
+        }
 
         hmd.leftJoystickAxis?.Invoke(data.joystickAxis);
       }
       else if (hardwarePart == VrHardware.RightController)
       {
-        if (data.gripClick) hmd.rightGripClick?.Invoke();
-        if (data.joystickClick) hmd.rightJoystickClick?.Invoke();
-        if (data.triggerClick) hmd.rightTriggerClick?.Invoke();
-        if (data.axButtonClick) hmd.buttonAClick?.Invoke();
-        if (data.byButtonClick) hmd.buttonBClick?.Invoke();
+        if (data.gripHold) hmd.rightGripHold?.Invoke();
+        if (data.joystickHold) hmd.rightJoystickHold?.Invoke();
+        if (data.triggerHold && _clickValue < data.triggerPressure) hmd.rightTriggerHold?.Invoke();
+        if (data.axButtonHold) hmd.buttonAHold?.Invoke();
+        if (data.byButtonHold) hmd.buttonBHold?.Invoke();
 
         if (!_onTriggerPressureDown && _clickValue < data.triggerPressure)
         {
@@ -317,12 +333,69 @@ namespace TawVR
           _onTriggerPressureDown = false;
           hmd.rightGripRelease?.Invoke();
         }
-
-        if (_clickValue < data.triggerPressure) hmd.rightTriggerHold?.Invoke();
-        if (_clickValue < data.gripPressure) hmd.rightGripHold?.Invoke();
+        
+        if (_axReset && data.axButtonHold)
+        {
+          hmd.buttonXClick?.Invoke();
+          _axReset = false;
+        }
+        else if (!data.axButtonHold)
+        {
+          if (!_axReset) hmd.buttonARelease?.Invoke();
+          _axReset = true;
+        }
+        
+        if (_byReset && data.byButtonHold)
+        {
+          hmd.buttonYClick?.Invoke();
+          _byReset = false;
+        }
+        else if (!data.byButtonHold)
+        {
+          if (!_byReset) hmd.buttonBRelease?.Invoke();
+          _byReset = true;
+        }
+        
+        if (_joystickReset && data.joystickHold)
+        {
+          hmd.rightJoystickClick?.Invoke();
+          _byReset = false;
+        }
+        else if (!data.joystickHold)
+        {
+          if (!_joystickReset) hmd.rightJoystickRelease?.Invoke();
+          _joystickReset = true;
+        }
 
         hmd.rightJoystickAxis?.Invoke(data.joystickAxis);
       }
+    }
+
+    #endregion
+
+    #region DataHandling
+
+    public void UpdateControllerData()
+    {
+      ControllerData controllerData = new ControllerData();
+
+      device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
+      device.TryGetFeatureValue(CommonUsages.devicePosition, out controllerData.position);
+      device.TryGetFeatureValue(CommonUsages.deviceRotation, out controllerData.rotation);
+      device.TryGetFeatureValue(CommonUsages.deviceVelocity, out controllerData.velocity);
+      device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
+      device.TryGetFeatureValue(CommonUsages.deviceAngularVelocity, out controllerData.angularVelocity);
+      device.TryGetFeatureValue(CommonUsages.deviceAngularAcceleration, out controllerData.angularAcceleration);
+      device.TryGetFeatureValue(CommonUsages.grip, out controllerData.gripPressure);
+      device.TryGetFeatureValue(CommonUsages.gripButton, out controllerData.gripHold);
+      device.TryGetFeatureValue(CommonUsages.trigger, out controllerData.triggerPressure);
+      device.TryGetFeatureValue(CommonUsages.triggerButton, out controllerData.triggerHold);
+      device.TryGetFeatureValue(CommonUsages.primaryButton, out controllerData.axButtonHold);
+      device.TryGetFeatureValue(CommonUsages.secondaryButton, out controllerData.byButtonHold);
+      device.TryGetFeatureValue(CommonUsages.primary2DAxis, out controllerData.joystickAxis);
+      device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out controllerData.joystickHold);
+      
+      data = controllerData;
     }
 
     #endregion

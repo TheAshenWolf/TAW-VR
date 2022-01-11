@@ -6,7 +6,7 @@ Preset:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: defaultSettings
+  m_Name: basic
   m_TargetType:
     m_NativeTypeID: 114
     m_ManagedTypePPtr: {fileID: 11500000, guid: 725c72d2e4dc408cac2aed4547127edb,
@@ -48,26 +48,6 @@ Preset:
   - target: {fileID: 0}
     propertyPath: floorLevel
     value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: invertHands
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: basePointerColor.r
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: basePointerColor.g
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: basePointerColor.b
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: basePointerColor.a
-    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: canTeleportColor.r
@@ -178,51 +158,115 @@ Preset:
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: leftJoystickHold.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: leftJoystickRelease.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: buttonXClick.m_PersistentCalls.m_Calls.Array.size
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: buttonXHold.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonXRelease.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: buttonYClick.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYHold.m_PersistentCalls.m_Calls.Array.size
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonYClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+    propertyPath: buttonYHold.m_PersistentCalls.m_Calls.Array.data[0].m_Target
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonYClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-    value: ToggleTeleport
+    propertyPath: buttonYHold.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+    value: StartTeleport
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonYClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+    propertyPath: buttonYHold.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonYClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+    propertyPath: buttonYHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonYClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+    propertyPath: buttonYHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
     value: UnityEngine.Object, UnityEngine
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonYClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+    propertyPath: buttonYHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonYClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+    propertyPath: buttonYHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonYClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+    propertyPath: buttonYHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonYClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+    propertyPath: buttonYHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonYClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+    propertyPath: buttonYHold.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYRelease.m_PersistentCalls.m_Calls.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYRelease.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+    value: ConfirmTeleport
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+    value: UnityEngine.Object, UnityEngine
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonYRelease.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
     value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -386,51 +430,115 @@ Preset:
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: rightJoystickHold.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: rightJoystickRelease.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: buttonAClick.m_PersistentCalls.m_Calls.Array.size
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: buttonAHold.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonARelease.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: buttonBClick.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBHold.m_PersistentCalls.m_Calls.Array.size
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonBClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+    propertyPath: buttonBHold.m_PersistentCalls.m_Calls.Array.data[0].m_Target
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonBClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-    value: ToggleTeleport
+    propertyPath: buttonBHold.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+    value: StartTeleport
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonBClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+    propertyPath: buttonBHold.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonBClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+    propertyPath: buttonBHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonBClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+    propertyPath: buttonBHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
     value: UnityEngine.Object, UnityEngine
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonBClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+    propertyPath: buttonBHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonBClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+    propertyPath: buttonBHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonBClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+    propertyPath: buttonBHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonBClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+    propertyPath: buttonBHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: buttonBClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+    propertyPath: buttonBHold.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBRelease.m_PersistentCalls.m_Calls.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBRelease.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+    value: ConfirmTeleport
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+    value: UnityEngine.Object, UnityEngine
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: buttonBRelease.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
     value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}

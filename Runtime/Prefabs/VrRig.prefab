@@ -324,9 +324,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 487234468954802572}
-  hardwarePart: 0
+  data:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    acceleration: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    angularAcceleration: {x: 0, y: 0, z: 0}
+    angularVelocity: {x: 0, y: 0, z: 0}
+    gripPressure: 0
+    gripHold: 0
+    triggerPressure: 0
+    triggerHold: 0
+    axButtonHold: 0
+    byButtonHold: 0
+    joystickAxis: {x: 0, y: 0}
+    joystickHold: 0
+  hardwarePart: 1
   hmd: {fileID: 6241150597362259309}
-  triggerCollider: {fileID: 0}
+  initialized: 0
+  triggerCollider: {fileID: 5739556597297074939}
 --- !u!135 &5739556597297074939
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -980,9 +996,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 515916735244379374}
+  data:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    acceleration: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
+    angularAcceleration: {x: 0, y: 0, z: 0}
+    angularVelocity: {x: 0, y: 0, z: 0}
+    gripPressure: 0
+    gripHold: 0
+    triggerPressure: 0
+    triggerHold: 0
+    axButtonHold: 0
+    byButtonHold: 0
+    joystickAxis: {x: 0, y: 0}
+    joystickHold: 0
   hardwarePart: 0
   hmd: {fileID: 6241150597362259309}
-  triggerCollider: {fileID: 0}
+  initialized: 0
+  triggerCollider: {fileID: 1252903634465210385}
 --- !u!135 &1252903634465210385
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1059,25 +1091,109 @@ MonoBehaviour:
   verticalMovementEnabled: 1
   leftJoystickAxis:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: VerticalMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   leftJoystickClick:
+    m_PersistentCalls:
+      m_Calls: []
+  leftJoystickHold:
+    m_PersistentCalls:
+      m_Calls: []
+  leftJoystickRelease:
     m_PersistentCalls:
       m_Calls: []
   buttonXClick:
     m_PersistentCalls:
       m_Calls: []
+  buttonXHold:
+    m_PersistentCalls:
+      m_Calls: []
+  buttonXRelease:
+    m_PersistentCalls:
+      m_Calls: []
   buttonYClick:
     m_PersistentCalls:
       m_Calls: []
+  buttonYHold:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: StartTeleport
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  buttonYRelease:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: ConfirmTeleport
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   leftTriggerClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: GrabObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   leftTriggerRelease:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: ReleaseObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   leftTriggerHold:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   leftTriggerPressure:
     m_PersistentCalls:
       m_Calls: []
@@ -1095,22 +1211,95 @@ MonoBehaviour:
       m_Calls: []
   rightJoystickAxis:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: HorizontalMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   rightJoystickClick:
+    m_PersistentCalls:
+      m_Calls: []
+  rightJoystickHold:
+    m_PersistentCalls:
+      m_Calls: []
+  rightJoystickRelease:
     m_PersistentCalls:
       m_Calls: []
   buttonAClick:
     m_PersistentCalls:
       m_Calls: []
+  buttonAHold:
+    m_PersistentCalls:
+      m_Calls: []
+  buttonARelease:
+    m_PersistentCalls:
+      m_Calls: []
   buttonBClick:
     m_PersistentCalls:
       m_Calls: []
+  buttonBHold:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: StartTeleport
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  buttonBRelease:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: ConfirmTeleport
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   rightTriggerClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: GrabObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   rightTriggerRelease:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: ReleaseObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   rightTriggerHold:
     m_PersistentCalls:
       m_Calls: []

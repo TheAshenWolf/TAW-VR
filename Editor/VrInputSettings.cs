@@ -28,8 +28,14 @@ namespace TawVR.Editor
 
     private SerializedProperty _leftJoystickCalls;
     private SerializedProperty _leftJoystickClickCalls;
+    private SerializedProperty _leftJoystickHoldCalls;
+    private SerializedProperty _leftJoystickReleaseCalls;
     private SerializedProperty _leftXCalls;
+    private SerializedProperty _leftXHoldCalls;
+    private SerializedProperty _leftXReleaseCalls;
     private SerializedProperty _leftYCalls;
+    private SerializedProperty _leftYHoldCalls;
+    private SerializedProperty _leftYReleaseCalls;
     private SerializedProperty _leftTriggerCalls;
     private SerializedProperty _leftTriggerReleasedCalls;
     private SerializedProperty _leftTriggerHoldCalls;
@@ -41,8 +47,14 @@ namespace TawVR.Editor
 
     private SerializedProperty _rightJoystickCalls;
     private SerializedProperty _rightJoystickClickCalls;
+    private SerializedProperty _rightJoystickHoldCalls;
+    private SerializedProperty _rightJoystickReleaseCalls;
     private SerializedProperty _rightACalls;
+    private SerializedProperty _rightAHoldCalls;
+    private SerializedProperty _rightAReleaseCalls;
     private SerializedProperty _rightBCalls;
+    private SerializedProperty _rightBHoldCalls;
+    private SerializedProperty _rightBReleaseCalls;
     private SerializedProperty _rightTriggerCalls;
     private SerializedProperty _rightTriggerReleasedCalls;
     private SerializedProperty _rightTriggerHoldCalls;
@@ -56,8 +68,14 @@ namespace TawVR.Editor
     {
       _leftJoystickCalls = serializedObject.FindProperty(nameof(rigInstance.leftJoystickAxis));
       _leftJoystickClickCalls = serializedObject.FindProperty(nameof(rigInstance.leftJoystickClick));
+      _leftJoystickHoldCalls = serializedObject.FindProperty(nameof(rigInstance.leftJoystickHold));
+      _leftJoystickReleaseCalls = serializedObject.FindProperty(nameof(rigInstance.leftJoystickRelease));
       _leftXCalls = serializedObject.FindProperty(nameof(rigInstance.buttonXClick));
+      _leftXHoldCalls = serializedObject.FindProperty(nameof(rigInstance.buttonXHold));
+      _leftXReleaseCalls = serializedObject.FindProperty(nameof(rigInstance.buttonXRelease));
       _leftYCalls = serializedObject.FindProperty(nameof(rigInstance.buttonYClick));
+      _leftYHoldCalls = serializedObject.FindProperty(nameof(rigInstance.buttonYHold));
+      _leftYReleaseCalls = serializedObject.FindProperty(nameof(rigInstance.buttonYRelease));
       _leftTriggerCalls = serializedObject.FindProperty(nameof(rigInstance.leftTriggerClick));
       _leftTriggerReleasedCalls = serializedObject.FindProperty(nameof(rigInstance.leftTriggerRelease));
       _leftTriggerHoldCalls = serializedObject.FindProperty(nameof(rigInstance.leftTriggerHold));
@@ -69,8 +87,14 @@ namespace TawVR.Editor
 
       _rightJoystickCalls = serializedObject.FindProperty(nameof(rigInstance.rightJoystickAxis));
       _rightJoystickClickCalls = serializedObject.FindProperty(nameof(rigInstance.rightJoystickClick));
+      _rightJoystickHoldCalls = serializedObject.FindProperty(nameof(rigInstance.rightJoystickHold));
+      _rightJoystickReleaseCalls = serializedObject.FindProperty(nameof(rigInstance.rightJoystickRelease));
       _rightACalls = serializedObject.FindProperty(nameof(rigInstance.buttonAClick));
+      _rightAHoldCalls = serializedObject.FindProperty(nameof(rigInstance.buttonAHold));
+      _rightAReleaseCalls = serializedObject.FindProperty(nameof(rigInstance.buttonARelease));
       _rightBCalls = serializedObject.FindProperty(nameof(rigInstance.buttonBClick));
+      _rightBHoldCalls = serializedObject.FindProperty(nameof(rigInstance.buttonBHold));
+      _rightBReleaseCalls = serializedObject.FindProperty(nameof(rigInstance.buttonBRelease));
       _rightTriggerCalls = serializedObject.FindProperty(nameof(rigInstance.rightTriggerClick));
       _rightTriggerReleasedCalls = serializedObject.FindProperty(nameof(rigInstance.rightTriggerRelease));
       _rightTriggerHoldCalls = serializedObject.FindProperty(nameof(rigInstance.rightTriggerHold));
@@ -115,18 +139,24 @@ namespace TawVR.Editor
       {
         IndentedEvent(_leftJoystickCalls);
         IndentedEvent(_leftJoystickClickCalls);
+        IndentedEvent(_leftJoystickHoldCalls);
+        IndentedEvent(_leftJoystickReleaseCalls);
       }
 
       EditorGUILayout.Foldout(editingLeftX, "Button X");
       if (editingLeftX)
       {
         IndentedEvent(_leftXCalls);
+        IndentedEvent(_leftXHoldCalls);
+        IndentedEvent(_leftXReleaseCalls);
       }
 
       EditorGUILayout.Foldout(editingLeftY, "Button Y");
       if (editingLeftY)
       {
         IndentedEvent(_leftYCalls);
+        IndentedEvent(_leftYHoldCalls);
+        IndentedEvent(_leftYReleaseCalls);
       }
 
       EditorGUILayout.Foldout(editingLeftTrigger, "Left Trigger");
@@ -156,18 +186,24 @@ namespace TawVR.Editor
       {
         IndentedEvent(_rightJoystickCalls);
         IndentedEvent(_rightJoystickClickCalls);
+        IndentedEvent(_rightJoystickHoldCalls);
+        IndentedEvent(_rightJoystickReleaseCalls);
       }
 
       EditorGUILayout.Foldout(editingRightA, "Button A");
       if (editingRightA)
       {
         IndentedEvent(_rightACalls);
+        IndentedEvent(_rightAHoldCalls);
+        IndentedEvent(_rightAReleaseCalls);
       }
 
       EditorGUILayout.Foldout(editingRightB, "Button B");
       if (editingRightB)
       {
         IndentedEvent(_rightBCalls);
+        IndentedEvent(_rightBHoldCalls);
+        IndentedEvent(_rightBReleaseCalls);
       }
 
       EditorGUILayout.Foldout(editingRightTrigger, "Right Trigger");

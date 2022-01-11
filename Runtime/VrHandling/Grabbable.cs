@@ -48,11 +48,7 @@ namespace TawVR
     {
       if (!canBeGrabbed) return; // If it can't be grabbed, we have nothing to do here
 
-      if (IsGrabbed) // Logic for when the item is being held by other grabber -> transfer from one hand to another
-      {
-        grabbedBy.RegrabObject(grabber); // Changes the grabbing events to the second grabber
-      }
-      else
+      if (!IsGrabbed)
       {
         _originalPosition = _transform.position;
         _originalRotation = _transform.rotation;
@@ -60,8 +56,11 @@ namespace TawVR
         _originalKinematicState = _rigidbody.isKinematic;
         _originalGravityState = _rigidbody.useGravity;
       }
-
-
+      else
+      {
+        grabbedBy.grabbedObject = null;
+      }
+      
       grabbedBy = grabber;
       _transform.SetParent(grabbedBy.transform, worldPositionStays);
       _rigidbody.useGravity = false;
