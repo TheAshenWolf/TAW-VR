@@ -1,12 +1,11 @@
-﻿using System;
-using Sirenix.OdinInspector.Editor;
+﻿using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace TawVR.Editor
+namespace TawVR.Editor.VrInputSettings
 {
   [CustomEditor(typeof(VrRig))]
-  public class VrRigSettings : OdinEditor // Inspector window
+  public class VrRigBaseEditor : OdinEditor // Inspector window
   {
     public override void OnInspectorGUI()
     {
@@ -16,7 +15,7 @@ namespace TawVR.Editor
       
       if (GUILayout.Button("Setup inputs"))
       {
-        VrRigInputEditor inputEditor = (VrRigInputEditor) EditorWindow.GetWindow(typeof(VrRigInputEditor), true, "Input editor");
+        VrRigInputEditorWindow inputEditor = (VrRigInputEditorWindow) EditorWindow.GetWindow(typeof(VrRigInputEditorWindow), true, "Input editor");
         inputEditor.rigInstance = (VrRig)target;
         inputEditor.Show();
         inputEditor.Init((VrRig)target);

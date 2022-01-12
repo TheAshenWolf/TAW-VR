@@ -6,15 +6,15 @@ using UnityEditor.Presets;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace TawVR.Editor
+namespace TawVR.Editor.VrInputSettings
 {
-  public class VrRigInputEditor : EditorWindow // Custom editor
+  public class VrRigInputEditorWindow : EditorWindow // Custom editor
   {
     public VrRig rigInstance;
 
     private Rect _drawingRect;
     private Texture _image;
-    private VrInputSettings _inputCallsEditor;
+    private VrRigInputsEditor _inputCallsEditor;
     private GUIStyle _centeredLabel;
 
     public void Init(VrRig instance)
@@ -27,7 +27,7 @@ namespace TawVR.Editor
 
       _image = Resources.Load("controllers") as Texture;
       _drawingRect = new Rect(200, 100, _image.width, _image.height);
-      _inputCallsEditor = (VrInputSettings)UnityEditor.Editor.CreateEditor(rigInstance, typeof(VrInputSettings));
+      _inputCallsEditor = (VrRigInputsEditor)UnityEditor.Editor.CreateEditor(rigInstance, typeof(VrRigInputsEditor));
       _inputCallsEditor.Init(rigInstance);
     }
 

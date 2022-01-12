@@ -4,10 +4,10 @@ using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace TawVR.Editor
+namespace TawVR.Editor.VrInputSettings
 {
   [CustomEditor(typeof(VrRig), isFallback = true)]
-  public class VrInputSettings : OdinEditor
+  public class VrRigInputsEditor : OdinEditor
   {
     public VrRig rigInstance;
     private GUIStyle _centeredLabel;
