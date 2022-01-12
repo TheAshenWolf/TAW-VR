@@ -108,6 +108,8 @@ namespace TawVR.Editor.VrInputSettings
       _inputCallsEditor.editingRightGrip = false;
     }
 
+
+    #region DiagramModule
     private void DiagramModule()
     {
       Color guiColor = GUI.color;
@@ -217,6 +219,7 @@ namespace TawVR.Editor.VrInputSettings
         SwitchEditing(ref _inputCallsEditor.editingRightGrip);
       }
     }
+    #endregion
 
     private void MethodSourcesModule()
     {
@@ -267,8 +270,9 @@ namespace TawVR.Editor.VrInputSettings
       
       if (GUI.Button(new Rect(240, 40, 200, 48), "Installation guide"))
       {
-        throw new NotImplementedException();
-        
+        InstallationGuideEditorWindow installationGuide = (InstallationGuideEditorWindow) EditorWindow.GetWindow(typeof(InstallationGuideEditorWindow), true, "Taw VR installation guide");
+        installationGuide.Init();
+
         // Go to Build Settings -> Player settings -> XR and check VR supported
         // You might need to disable the Vulkan API. In order to do so, go to Player Settings -> Other and remove Vulkan from the Graphics API list
       }
