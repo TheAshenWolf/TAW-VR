@@ -1,8 +1,10 @@
-﻿using System;
-using Sirenix.Utilities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace TawVR.Editor.VrInputSettings
 {
@@ -10,7 +12,7 @@ namespace TawVR.Editor.VrInputSettings
   {
     private GUIStyle _richText;
     private GUIStyle _label;
-
+    public List<GraphicsDeviceType> graphicsAPIs;
     public void Init()
     {
       position = new Rect(Screen.width / 2f, Screen.height / 2f, 500, 800);
@@ -41,7 +43,7 @@ namespace TawVR.Editor.VrInputSettings
     {
       EditorGUILayout.HelpBox(
         "Your current selected platform is " + EditorUserBuildSettings.activeBuildTarget.ToString() +
-        ". \n If you want to set up Oculus link debugging, you need to switch to StandaloneWindows.", MessageType.Info);
+        ". \nIf you want to set up Oculus link debugging, you need to switch to StandaloneWindows.", MessageType.Info);
       if (GUILayout.Button("Switch to StandaloneWindows"))
       {
         EditorUserBuildSettings.selectedStandaloneTarget = BuildTarget.StandaloneWindows;
@@ -50,10 +52,9 @@ namespace TawVR.Editor.VrInputSettings
       GUILayout.Space(EditorGUIUtility.singleLineHeight);
 
       SirenixEditorGUI.BeginBox();
-
       SirenixEditorGUI.BeginBoxHeader();
       GUILayout.Space(4);
-      GUILayout.Label("<b>Enable VR input</b> - The first step is to enable the VR support", _label);
+      GUILayout.Label("<b>Enable VR input</b>\n- The first step is to enable the VR support", _label);
       GUILayout.Space(4);
       SirenixEditorGUI.EndBoxHeader();
 
@@ -65,8 +66,52 @@ namespace TawVR.Editor.VrInputSettings
       EditorGUILayout.EndHorizontal();
       GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
       SirenixEditorGUI.EndBox();
-    }
+      
+      ///////////////////////////////
+      GUILayout.Space(EditorGUIUtility.singleLineHeight);
+      
+      SirenixEditorGUI.BeginBox();
+      SirenixEditorGUI.BeginBoxHeader();
+      GUILayout.Space(4);
+      GUILayout.Label("<b>Setup Graphical APIs</b>\n- If you see \"Vulkan\" in this list, you need to remove it.", _label);
+      GUILayout.Space(4);
+      SirenixEditorGUI.EndBoxHeader();
+      GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
+      EditorGUILayout.BeginHorizontal();
+      GUILayout.Space(EditorGUIUtility.singleLineHeight);
+      EditorGUILayout.BeginVertical();
+      GUILayout.Label("<b>Current Graphical APIs:</b>", _richText);
+      GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
+      
+      List<GraphicsDeviceType> apis = PlayerSettings.GetGraphicsAPIs(BuildTarget.Android).ToList();
+      foreach (GraphicsDeviceType api in apis)
+      {
+        if (api.ToString() == "Vulkan")
+        {
+          GUILayout.Label("  <color=red>" + api + "</color>", _richText);
+        }
+        else
+        {
+          GUILayout.Label("  " + api, _richText);
+        }
+        
+      }
+      EditorGUILayout.EndVertical();
+      EditorGUILayout.EndHorizontal();
+      GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
 
+      if (!apis.Contains(GraphicsDeviceType.Vulkan)) GUI.enabled = false;
+      if (GUILayout.Button(new GUIContent("Remove Vulkan", apis.Contains(GraphicsDeviceType.Vulkan) ? "Removes the Vulkan api from the selection. Might take a second." : "Vulkan is not present. You are safe to proceed.")))
+      {
+        
+        apis.Remove(GraphicsDeviceType.Vulkan);
+        PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, apis.ToArray());
+      }
+      GUI.enabled = true;
+      SirenixEditorGUI.EndBox();
+      
+      ///////////////////////////////
+    }
 
     private void OnWindows()
     {
