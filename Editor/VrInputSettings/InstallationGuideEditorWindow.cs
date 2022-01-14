@@ -42,11 +42,11 @@ namespace TawVR.Editor.VrInputSettings
     private void OnAndroid()
     {
       EditorGUILayout.HelpBox(
-        "Your current selected platform is " + EditorUserBuildSettings.activeBuildTarget.ToString() +
-        ". \nIf you want to set up Oculus link debugging, you need to switch to StandaloneWindows.", MessageType.Info);
-      if (GUILayout.Button("Switch to StandaloneWindows"))
+        "Your current selected platform is " + EditorUserBuildSettings.selectedBuildTargetGroup.ToString() +
+        ". \nIf you want to set up Oculus link debugging, you need to switch to Standalone.", MessageType.Info);
+      if (GUILayout.Button("Switch platform in build settings"))
       {
-        EditorUserBuildSettings.selectedStandaloneTarget = BuildTarget.StandaloneWindows;
+        GetWindow(System.Type.GetType("UnityEditor.BuildPlayerWindow,UnityEditor"));
       }
 
       GUILayout.Space(EditorGUIUtility.singleLineHeight);
@@ -116,33 +116,47 @@ namespace TawVR.Editor.VrInputSettings
     private void OnWindows()
     {
       EditorGUILayout.HelpBox(
-        "Your current selected platform is " + EditorUserBuildSettings.activeBuildTarget.ToString() +
+        "Your current selected platform is " + EditorUserBuildSettings.selectedBuildTargetGroup.ToString() +
         ". \n If you want to set up the library, you need to switch to the Android platform. \n However, here you can set up the Oculus Link debugging.",
         MessageType.Warning);
 
-      if (GUILayout.Button("Switch to Android"))
+      if (GUILayout.Button("Switch platform in build settings"))
       {
-        EditorUserBuildSettings.selectedStandaloneTarget = BuildTarget.Android;
+        GetWindow(System.Type.GetType("UnityEditor.BuildPlayerWindow,UnityEditor"));
       }
+
+      
+      GUILayout.Space(EditorGUIUtility.singleLineHeight);
+
+      SirenixEditorGUI.BeginBox();
+      SirenixEditorGUI.BeginBoxHeader();
+      GUILayout.Space(4);
+      GUILayout.Label("<b>Enable VR input</b>\n- Enable VR support to enable Oculus Link", _label);
+      GUILayout.Space(4);
+      SirenixEditorGUI.EndBoxHeader();
+
+      GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
+      EditorGUILayout.BeginHorizontal();
+      GUILayout.Space(EditorGUIUtility.singleLineHeight);
+      PlayerSettings.virtualRealitySupported =
+        GUILayout.Toggle(PlayerSettings.virtualRealitySupported, "Virtual Reality Supported");
+      EditorGUILayout.EndHorizontal();
+      GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
+      SirenixEditorGUI.EndBox();
     }
 
 
     private void OnOther()
     {
       EditorGUILayout.HelpBox(
-        "Your current selected platform is " + EditorUserBuildSettings.activeBuildTarget.ToString() +
-        ". \n If you want to set up the library, you need to switch to the Android platform. \n In order to set up Oculus Link debugging, switch to StandaloneWindows.",
+        "Your current selected platform is " + EditorUserBuildSettings.selectedBuildTargetGroup.ToString() +
+        ". \n If you want to set up the library, you need to switch to the Android platform. \n In order to set up Oculus Link debugging, switch to Standalone.",
         MessageType.Error);
 
       GUILayout.BeginHorizontal();
-      if (GUILayout.Button("Switch to Android"))
+      if (GUILayout.Button("Switch platform in build settings"))
       {
-        EditorUserBuildSettings.selectedStandaloneTarget = BuildTarget.Android;
-      }
-
-      if (GUILayout.Button("Switch to StandaloneWindows"))
-      {
-        EditorUserBuildSettings.selectedStandaloneTarget = BuildTarget.StandaloneWindows;
+        GetWindow(System.Type.GetType("UnityEditor.BuildPlayerWindow,UnityEditor"));
       }
 
       GUILayout.EndHorizontal();
