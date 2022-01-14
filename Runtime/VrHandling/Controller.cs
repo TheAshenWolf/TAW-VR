@@ -1,38 +1,43 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR;
 
-namespace TawVR
+namespace TawVR.Runtime.VrHandling
 {
   public class Controller : MonoBehaviour
   {
-    public LineRenderer lineRenderer;
-    public InputDevice device;
-    public ControllerData data;
-    public VrHardware hardwarePart;
+    [Title("Components")]
     [Required] public VrRig hmd;
+    public LineRenderer lineRenderer;
+    public Collider triggerCollider;
+    
+    [Title("Information")]
+    [ReadOnly] public Grabbable grabbedObject;
+    [ReadOnly] public ControllerData data;
+    
+    [HideInInspector] public VrHardware hardwarePart;
+    [HideInInspector] public bool initialized;
+    
+    private InputDevice _device;
+    private Collider _proximityItem;
     private Transform _transform;
-    private bool _teleportReady;
-    private bool _canTeleport;
-    private bool _attemptTeleport;
     private Vector3 _teleportLocation;
     private Vector3 _position;
+    private bool _canTeleport;
+    private bool _attemptTeleport;
     private bool _onTriggerPressureDown;
     private bool _onGripPressureDown;
-    private float _clickValue;
-    private float _releaseValue;
-    public bool initialized;
-
     private bool _joystickReset;
     private bool _axReset;
     private bool _byReset;
-
+    private float _clickValue;
+    private float _releaseValue;
+    
     public void Init(InputDevice inputDevice, VrHardware hwPart)
     {
-      device = inputDevice;
+      _device = inputDevice;
       data = new ControllerData();
       hardwarePart = hwPart;
 
@@ -61,16 +66,10 @@ namespace TawVR
 
     public void SendHaptic(float duration = 1f)
     {
-      device.SendHapticImpulse(0, .5f, duration);
+      _device.SendHapticImpulse(0, .5f, duration);
     }
 
     #region Grabber
-
-    public Collider triggerCollider;
-
-    public Grabbable grabbedObject;
-    private Collider _proximityItem;
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -120,13 +119,11 @@ namespace TawVR
 
     #region Teleportation
 
-    [Button]
     public void StartTeleport() // Should be assigned onHold
     {
       _attemptTeleport = true;
     }
 
-    [Button]
     public void ConfirmTeleport() // Should be assigned onRelease
     {
       _attemptTeleport = false;
@@ -260,12 +257,12 @@ namespace TawVR
 
         if (!_onGripPressureDown && _clickValue < data.gripPressure)
         {
-          _onTriggerPressureDown = true;
+          _onGripPressureDown = true;
           hmd.leftGripClick?.Invoke();
         }
         else if (_onGripPressureDown && _releaseValue > data.gripPressure)
         {
-          _onTriggerPressureDown = false;
+          _onGripPressureDown = false;
           hmd.leftGripRelease?.Invoke();
         }
 
@@ -379,21 +376,21 @@ namespace TawVR
     {
       ControllerData controllerData = new ControllerData();
 
-      device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
-      device.TryGetFeatureValue(CommonUsages.devicePosition, out controllerData.position);
-      device.TryGetFeatureValue(CommonUsages.deviceRotation, out controllerData.rotation);
-      device.TryGetFeatureValue(CommonUsages.deviceVelocity, out controllerData.velocity);
-      device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
-      device.TryGetFeatureValue(CommonUsages.deviceAngularVelocity, out controllerData.angularVelocity);
-      device.TryGetFeatureValue(CommonUsages.deviceAngularAcceleration, out controllerData.angularAcceleration);
-      device.TryGetFeatureValue(CommonUsages.grip, out controllerData.gripPressure);
-      device.TryGetFeatureValue(CommonUsages.gripButton, out controllerData.gripHold);
-      device.TryGetFeatureValue(CommonUsages.trigger, out controllerData.triggerPressure);
-      device.TryGetFeatureValue(CommonUsages.triggerButton, out controllerData.triggerHold);
-      device.TryGetFeatureValue(CommonUsages.primaryButton, out controllerData.axButtonHold);
-      device.TryGetFeatureValue(CommonUsages.secondaryButton, out controllerData.byButtonHold);
-      device.TryGetFeatureValue(CommonUsages.primary2DAxis, out controllerData.joystickAxis);
-      device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out controllerData.joystickHold);
+      _device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
+      _device.TryGetFeatureValue(CommonUsages.devicePosition, out controllerData.position);
+      _device.TryGetFeatureValue(CommonUsages.deviceRotation, out controllerData.rotation);
+      _device.TryGetFeatureValue(CommonUsages.deviceVelocity, out controllerData.velocity);
+      _device.TryGetFeatureValue(CommonUsages.deviceAcceleration, out controllerData.acceleration);
+      _device.TryGetFeatureValue(CommonUsages.deviceAngularVelocity, out controllerData.angularVelocity);
+      _device.TryGetFeatureValue(CommonUsages.deviceAngularAcceleration, out controllerData.angularAcceleration);
+      _device.TryGetFeatureValue(CommonUsages.grip, out controllerData.gripPressure);
+      _device.TryGetFeatureValue(CommonUsages.gripButton, out controllerData.gripHold);
+      _device.TryGetFeatureValue(CommonUsages.trigger, out controllerData.triggerPressure);
+      _device.TryGetFeatureValue(CommonUsages.triggerButton, out controllerData.triggerHold);
+      _device.TryGetFeatureValue(CommonUsages.primaryButton, out controllerData.axButtonHold);
+      _device.TryGetFeatureValue(CommonUsages.secondaryButton, out controllerData.byButtonHold);
+      _device.TryGetFeatureValue(CommonUsages.primary2DAxis, out controllerData.joystickAxis);
+      _device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out controllerData.joystickHold);
       
       data = controllerData;
     }

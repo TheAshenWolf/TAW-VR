@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using TawVR.Runtime.VrHandling;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,7 +8,7 @@ namespace TawVR
   /// <summary>
   /// Attached to a gameObject to make it grabbable by the controllers
   /// </summary>
-  [RequireComponent(typeof(Rigidbody), typeof(Collider))]
+  [RequireComponent(typeof(Rigidbody), typeof(Collider)), DisallowMultipleComponent]
   public class Grabbable : MonoBehaviour
   {
     [Title("Settings")] public bool canBeGrabbed = true;

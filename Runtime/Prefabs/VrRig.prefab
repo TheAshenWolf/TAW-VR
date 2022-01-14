@@ -46,6 +46,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -234,6 +235,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -258,6 +260,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!95 &917702838565307095
 Animator:
   serializedVersion: 3
@@ -286,7 +289,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 917702839569117830}
-  - component: {fileID: 3819057001332249364}
+  - component: {fileID: 5003398685623857270}
   - component: {fileID: 5739556597297074939}
   m_Layer: 0
   m_Name: RightController
@@ -311,7 +314,7 @@ Transform:
   m_Father: {fileID: 6241150597362259317}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3819057001332249364
+--- !u!114 &5003398685623857270
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -320,10 +323,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 917702839569117833}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4360c9410f8d404d8812b727b835b4ec, type: 3}
+  m_Script: {fileID: 11500000, guid: c0cc092ce1a84ceba75132658df630e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hmd: {fileID: 6241150597362259309}
   lineRenderer: {fileID: 487234468954802572}
+  triggerCollider: {fileID: 5739556597297074939}
+  grabbedObject: {fileID: 0}
   data:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -339,10 +345,8 @@ MonoBehaviour:
     byButtonHold: 0
     joystickAxis: {x: 0, y: 0}
     joystickHold: 0
-  hardwarePart: 1
-  hmd: {fileID: 6241150597362259309}
+  hardwarePart: 0
   initialized: 0
-  triggerCollider: {fileID: 5739556597297074939}
 --- !u!135 &5739556597297074939
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -411,6 +415,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -435,6 +440,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1869486671769628026
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,6 +496,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -514,6 +521,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &2488173890554859802
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +568,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -746,6 +755,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -770,6 +780,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4454930459731501484
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,6 +836,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -849,6 +861,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6227465587633100768
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,6 +919,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -930,6 +944,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!95 &6227465587623617568
 Animator:
   serializedVersion: 3
@@ -958,7 +973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6227465588802488723}
-  - component: {fileID: 7788584284188420443}
+  - component: {fileID: 2127609777691003646}
   - component: {fileID: 1252903634465210385}
   m_Layer: 0
   m_Name: LeftController
@@ -983,7 +998,7 @@ Transform:
   m_Father: {fileID: 6241150597362259317}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7788584284188420443
+--- !u!114 &2127609777691003646
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -992,10 +1007,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6227465588802488720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4360c9410f8d404d8812b727b835b4ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 721e0a2265114970a23a7549a63b62a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hmd: {fileID: 6241150597362259309}
   lineRenderer: {fileID: 515916735244379374}
+  triggerCollider: {fileID: 1252903634465210385}
+  grabbedObject: {fileID: 0}
   data:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -1012,9 +1030,7 @@ MonoBehaviour:
     joystickAxis: {x: 0, y: 0}
     joystickHold: 0
   hardwarePart: 0
-  hmd: {fileID: 6241150597362259309}
   initialized: 0
-  triggerCollider: {fileID: 1252903634465210385}
 --- !u!135 &1252903634465210385
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1075,8 +1091,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 6241150598485898890}
-  leftController: {fileID: 7788584284188420443}
-  rightController: {fileID: 3819057001332249364}
+  leftController: {fileID: 2127609777691003646}
+  rightController: {fileID: 5003398685623857270}
   advancedColliderDetection: 0
   colliderDifferenceThreshold: 0.125
   floorLevel: 0
@@ -1092,7 +1108,8 @@ MonoBehaviour:
   leftJoystickAxis:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6241150597362259309}
+        m_TargetAssemblyTypeName: TawVR.VrRig, TawVR
         m_MethodName: VerticalMovement
         m_Mode: 0
         m_Arguments:
@@ -1127,7 +1144,8 @@ MonoBehaviour:
   buttonYHold:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2127609777691003646}
+        m_TargetAssemblyTypeName: TawVR.Runtime.VrHandling.Controller, TawVR
         m_MethodName: StartTeleport
         m_Mode: 1
         m_Arguments:
@@ -1141,7 +1159,8 @@ MonoBehaviour:
   buttonYRelease:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2127609777691003646}
+        m_TargetAssemblyTypeName: TawVR.Runtime.VrHandling.Controller, TawVR
         m_MethodName: ConfirmTeleport
         m_Mode: 1
         m_Arguments:
@@ -1155,7 +1174,8 @@ MonoBehaviour:
   leftTriggerClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2127609777691003646}
+        m_TargetAssemblyTypeName: TawVR.Runtime.VrHandling.Controller, TawVR
         m_MethodName: GrabObject
         m_Mode: 1
         m_Arguments:
@@ -1169,7 +1189,8 @@ MonoBehaviour:
   leftTriggerRelease:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2127609777691003646}
+        m_TargetAssemblyTypeName: TawVR.Runtime.VrHandling.Controller, TawVR
         m_MethodName: ReleaseObject
         m_Mode: 1
         m_Arguments:
@@ -1182,18 +1203,7 @@ MonoBehaviour:
         m_CallState: 2
   leftTriggerHold:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   leftTriggerPressure:
     m_PersistentCalls:
       m_Calls: []
@@ -1212,7 +1222,8 @@ MonoBehaviour:
   rightJoystickAxis:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6241150597362259309}
+        m_TargetAssemblyTypeName: TawVR.VrRig, TawVR
         m_MethodName: HorizontalMovement
         m_Mode: 0
         m_Arguments:
@@ -1247,7 +1258,8 @@ MonoBehaviour:
   buttonBHold:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5003398685623857270}
+        m_TargetAssemblyTypeName: TawVR.Runtime.VrHandling.Controller, TawVR
         m_MethodName: StartTeleport
         m_Mode: 1
         m_Arguments:
@@ -1261,7 +1273,8 @@ MonoBehaviour:
   buttonBRelease:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5003398685623857270}
+        m_TargetAssemblyTypeName: TawVR.Runtime.VrHandling.Controller, TawVR
         m_MethodName: ConfirmTeleport
         m_Mode: 1
         m_Arguments:
@@ -1275,7 +1288,8 @@ MonoBehaviour:
   rightTriggerClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5003398685623857270}
+        m_TargetAssemblyTypeName: TawVR.Runtime.VrHandling.Controller, TawVR
         m_MethodName: GrabObject
         m_Mode: 1
         m_Arguments:
@@ -1289,7 +1303,8 @@ MonoBehaviour:
   rightTriggerRelease:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5003398685623857270}
+        m_TargetAssemblyTypeName: TawVR.Runtime.VrHandling.Controller, TawVR
         m_MethodName: ReleaseObject
         m_Mode: 1
         m_Arguments:
