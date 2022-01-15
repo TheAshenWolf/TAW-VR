@@ -3,7 +3,7 @@ using TawVR.Runtime.VrHandling;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace TawVR
+namespace TawVR.Runtime.Core.VrHandling
 {
   /// <summary>
   /// Attached to a gameObject to make it grabbable by the controllers
@@ -84,6 +84,8 @@ namespace TawVR
       {
         _transform.position = _originalPosition;
         _transform.rotation = _originalRotation;
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
       }
       else
       {

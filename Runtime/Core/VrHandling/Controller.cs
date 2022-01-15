@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using TawVR.Runtime.Core.VrHandling;
 using UnityEngine;
 using UnityEngine.XR;
 

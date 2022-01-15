@@ -42,9 +42,9 @@ namespace TawVR.Editor.VrInputSettings
     private void OnEnable()
     {
       _rig = (VrRig)target;
-      _toolbarIconsList.Add(new GUIContent(Resources.Load("VrRigToolbar/Puzzle") as Texture, "Components"));
-      _toolbarIconsList.Add(new GUIContent(Resources.Load("VrRigToolbar/Settings") as Texture, "Settings"));
-      _toolbarIconsList.Add(new GUIContent(Resources.Load("VrRigToolbar/Input") as Texture, "Controls"));
+      _toolbarIconsList.Add(new GUIContent(Resources.Load("ToolbarIcons/Puzzle") as Texture, "Components"));
+      _toolbarIconsList.Add(new GUIContent(Resources.Load("ToolbarIcons/Settings") as Texture, "Settings"));
+      _toolbarIconsList.Add(new GUIContent(Resources.Load("ToolbarIcons/Input") as Texture, "Controls"));
 
       _toolbarIcons = _toolbarIconsList.ToArray();
       
@@ -147,7 +147,7 @@ namespace TawVR.Editor.VrInputSettings
     private SerializedProperty _controls_verticalMovementEnabled;*/
           
           GUILayout.Space(EditorGUIUtility.singleLineHeight);
-          if (GUILayout.Button(new GUIContent("<b>Open controls editor</b>", Resources.Load("VrRigToolbar/Input") as Texture, "Opens the controls editor"), buttonWithIcon))
+          if (GUILayout.Button(new GUIContent("<b>Open controls editor</b>", Resources.Load("ToolbarIcons/Input") as Texture, "Opens the controls editor"), buttonWithIcon))
           {
             VrRigInputEditorWindow inputEditor =
               (VrRigInputEditorWindow)EditorWindow.GetWindow(typeof(VrRigInputEditorWindow), true, "Controls editor");
