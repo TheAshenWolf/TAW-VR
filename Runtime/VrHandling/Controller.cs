@@ -6,7 +6,7 @@ using UnityEngine.XR;
 
 namespace TawVR.Runtime.VrHandling
 {
-  public class Controller : MonoBehaviour
+  public abstract class Controller : MonoBehaviour
   {
     [Title("Components")]
     [Required] public VrRig hmd;

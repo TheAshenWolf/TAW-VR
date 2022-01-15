@@ -1095,7 +1095,7 @@ MonoBehaviour:
   rightController: {fileID: 5003398685623857270}
   advancedColliderDetection: 0
   colliderDifferenceThreshold: 0.125
-  floorLevel: 0
+  floorLevel: NaN
   canTeleportColor: {r: 0.101122975, g: 1, b: 0, a: 1}
   cannotTeleportColor: {r: 1, g: 0, b: 0, a: 1}
   movementSpeed: 1

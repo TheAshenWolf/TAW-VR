@@ -22,8 +22,8 @@ namespace TawVR
     [ShowIf(nameof(advancedColliderDetection)), BoxGroup("ACD"), Tooltip("Radius around the main position to consider as body.")]
     public float colliderDifferenceThreshold = 0.125f;
 
-    [ShowIf(nameof(advancedColliderDetection)), BoxGroup("ACD"), Tooltip("The bottom-most floor. Doesn't allow movement past this point. Set to -1 to disable.")]
-    public float floorLevel;
+    [ShowIf(nameof(advancedColliderDetection)), BoxGroup("ACD"), Tooltip("The bottom-most floor. Doesn't allow movement past this point. Set to NaN to disable")]
+    public float floorLevel = float.NaN;
 
     [BoxGroup, Tooltip("Pointer color when user can teleport"), ColorUsage(true, false)]
     public Color canTeleportColor;
@@ -220,6 +220,8 @@ namespace TawVR
         }
       }
 
+      if (float.IsNaN(floorLevel)) return;
+      
       if (mainCamera.transform.position.y > (floorLevel + .5f) || input.y > 0)
       {
         transform.Translate(coordinates * movementSpeed * Time.deltaTime);
