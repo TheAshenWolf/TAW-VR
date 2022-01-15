@@ -55,7 +55,6 @@ namespace TawVR
     
     [Title("Privates")] 
     private List<InputDevice> _inputDevices = new List<InputDevice>();
-    private InputDevice _cameraDevice;
 
     [Title("Calls")]
     [HideInInspector] public UnityVector2Event leftJoystickAxis;
