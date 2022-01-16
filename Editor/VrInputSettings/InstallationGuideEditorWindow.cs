@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
