@@ -47,6 +47,10 @@ namespace TawVR
     [ShowIf(nameof(teleportationEnabled)), BoxGroup, Tooltip("true - uses a ballistic calculation to get the final position of the teleport; false - uses a straight line")]
     public bool useBallisticTeleportation;
 
+    [ShowIf(nameof(useBallisticTeleportation)), BoxGroup, Range(0.01f, 0.99f)] public float ballisticDecayRate = 0.025f;
+    [ShowIf(nameof(useBallisticTeleportation)), BoxGroup] public float ballisticStepDistance = 1f;
+    [ShowIf(nameof(useBallisticTeleportation)), BoxGroup] public int ballisticMaxSteps = 128;
+
     [BoxGroup, Tooltip("If false, user can not move on the horizontal plane.")]
     public bool horizontalMovementEnabled;
 

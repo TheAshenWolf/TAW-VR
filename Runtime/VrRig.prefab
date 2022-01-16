@@ -1090,9 +1090,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725c72d2e4dc408cac2aed4547127edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  leftController: {fileID: 0}
-  rightController: {fileID: 0}
+  mainCamera: {fileID: 6241150598485898890}
+  leftController: {fileID: 2127609777691003646}
+  rightController: {fileID: 5003398685623857270}
   advancedColliderDetection: 0
   colliderDifferenceThreshold: 0.125
   floorLevel: 0
@@ -1103,6 +1103,9 @@ MonoBehaviour:
   clickValue: 0.8
   teleportationEnabled: 1
   useBallisticTeleportation: 1
+  ballisticDecayRate: 0.025
+  ballisticStepDistance: 1
+  ballisticMaxSteps: 128
   horizontalMovementEnabled: 1
   verticalMovementEnabled: 1
   leftJoystickAxis:

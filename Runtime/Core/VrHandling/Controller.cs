@@ -143,9 +143,6 @@ namespace TawVR.Runtime.VrHandling
       {
         if (hmd.useBallisticTeleportation)
         {
-          float decayRate = 0.025f;
-          float stepDistance = 1f;
-          int maxSteps = 128;
           int currentSteps = 0;
           bool rayHit = false;
 
@@ -157,16 +154,16 @@ namespace TawVR.Runtime.VrHandling
           lineRenderer.positionCount = 1;
 
 
-          while (currentSteps <= maxSteps && currentPosition.y >= hmd.floorLevel && !rayHit)
+          while (currentSteps <= hmd.ballisticMaxSteps && currentPosition.y >= hmd.floorLevel && !rayHit)
           {
-            Vector3 decayedVector = Mathf.Clamp01(decayRate * currentSteps) * Vector3.down +
-                                    pointingDirection * Mathf.Clamp01(1 - decayRate * currentSteps);
+            Vector3 decayedVector = Mathf.Clamp01(hmd.ballisticDecayRate * currentSteps) * Vector3.down +
+                                    pointingDirection * Mathf.Clamp01(1 - hmd.ballisticDecayRate * currentSteps);
 
-            decayedVector = decayedVector.normalized * stepDistance;
+            decayedVector = decayedVector.normalized * hmd.ballisticStepDistance;
 
 
             Ray raycast = new Ray(currentPosition, decayedVector);
-            Physics.Raycast(raycast, out RaycastHit hitObject, stepDistance);
+            Physics.Raycast(raycast, out RaycastHit hitObject, hmd.ballisticStepDistance);
 
             rayHit = !(hitObject.transform is null);
 
