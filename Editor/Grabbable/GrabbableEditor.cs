@@ -56,16 +56,16 @@ namespace TawVR.Editor.Grabbable
           GUILayout.Label("<b>Settings</b>", middleLabelStyle);
           EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
           
-          EditorGUILayout.PropertyField(_settings_canBeGrabbed, new GUIContent("Can be grabbed"));
+          EditorGUILayout.PropertyField(_settings_canBeGrabbed, new GUIContent("Can be grabbed", "If disabled, the object can't be grabbed. Can be used to temporarily disable grabbing."));
           GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
-          EditorGUILayout.PropertyField(_settings_worldPositionStays, new GUIContent("World position stays"));
-          EditorGUILayout.PropertyField(_settings_returnToOriginalSpotOnRelease, new GUIContent("Return on release"));
+          EditorGUILayout.PropertyField(_settings_worldPositionStays, new GUIContent("World position stays", "Whether the transform relative to the world stays the same when the item is grabbed. There should be no need to disable this setting."));
+          EditorGUILayout.PropertyField(_settings_returnToOriginalSpotOnRelease, new GUIContent("Return on release", "If enabled, the item will teleport back to the place where it was picked up from."));
           
           GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
           GUILayout.Label("<b>Callbacks</b>", middleLabelStyle);
           EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-          EditorGUILayout.PropertyField(_settings_onGrabbed, new GUIContent("On grabbed callback"));
-          EditorGUILayout.PropertyField(_settings_onReleased, new GUIContent("On released callback"));
+          EditorGUILayout.PropertyField(_settings_onGrabbed, new GUIContent("On grabbed callback", "Assign methods here to have them called when the item is picked up."));
+          EditorGUILayout.PropertyField(_settings_onReleased, new GUIContent("On released callback", "Assign methods here to have them called when the item is relesed."));
           break;
         case 1:
           GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
@@ -73,7 +73,7 @@ namespace TawVR.Editor.Grabbable
           EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
           GUI.enabled = false;
-          EditorGUILayout.PropertyField(_details_grabbedBy, new GUIContent("Grabbed by"));
+          EditorGUILayout.PropertyField(_details_grabbedBy, new GUIContent("Grabbed by", "The controller that is currently holding this object."));
           GUI.enabled = true;
           break;
       }
