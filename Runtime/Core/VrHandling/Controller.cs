@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using TAW_VR.Runtime.Core.VrHandling;
 using TawVR.Runtime.Core.VrHandling;
 using UnityEngine;
 using UnityEngine.XR;
@@ -68,7 +69,7 @@ namespace TawVR.Runtime.VrHandling
       HandleCalls();
     }
 
-    public void SendHaptic(float duration = 1f)
+    public void SendHaptic(float duration = .5f)
     {
       _device.SendHapticImpulse(0, .5f, duration);
     }
@@ -77,14 +78,15 @@ namespace TawVR.Runtime.VrHandling
 
     private void OnTriggerEnter(Collider other)
     {
-      SendHaptic();
+      SendHaptic(.2f);
       if (other.GetComponent<Grabbable>() != null) _proximityGrabbableItem = other;
       if (other.GetComponent<Rotateable>() != null) _proximityRotateableItem = other;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-      SendHaptic();
+      Debug.LogError("Collision in");
+      SendHaptic(.2f);
       if (collision.collider.GetComponent<Grabbable>() != null) _proximityGrabbableItem = collision.collider;
       if (collision.collider.GetComponent<Rotateable>() != null) _proximityRotateableItem = collision.collider;
     }

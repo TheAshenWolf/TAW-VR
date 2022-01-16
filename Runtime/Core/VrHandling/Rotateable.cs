@@ -1,11 +1,10 @@
-﻿using System;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using TawVR.Runtime.VrHandling;
 using UnityEngine;
 
-namespace TawVR.Runtime.Core.VrHandling
+namespace TAW_VR.Runtime.Core.VrHandling
 {
-  [DisallowMultipleComponent]
+  [DisallowMultipleComponent, RequireComponent(typeof(Collider)), RequireComponent(typeof(Rigidbody))]
   public class Rotateable : MonoBehaviour
   {
     [Title("Settings")] 
@@ -38,11 +37,14 @@ namespace TawVR.Runtime.Core.VrHandling
         _isRotating = true;
         _rotationPoint = _transform.position;
         _startingRotation = _transform.rotation;
-        _startingPoint = Vector3.Normalize(controller.data.position - _rotationPoint);
+        _startingPoint = controller.transform.position - _rotationPoint;
         _difference = _startingRotation.eulerAngles - _startingPoint;
+        rotatingWith = controller;
       }
-      Vector3 newPoint = Vector3.Normalize(controller.data.position - _rotationPoint);
+      Vector3 newPoint = controller.transform.position - _rotationPoint;
+      Debug.LogError(newPoint);
       Quaternion newRotation = Quaternion.Euler(_difference + newPoint);
+      Debug.LogError(newRotation);
 
       _transform.rotation = newRotation;
     }
@@ -50,6 +52,7 @@ namespace TawVR.Runtime.Core.VrHandling
     public void FinishRotation()
     {
       _isRotating = false;
+      rotatingWith = null;
     }
   }
 }
