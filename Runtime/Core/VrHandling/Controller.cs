@@ -16,13 +16,13 @@ namespace TawVR.Runtime.VrHandling
     
     [Title("Information")]
     [ReadOnly] public Grabbable grabbedObject;
+    [ReadOnly] public Rotateable rotatedObject;
     [ReadOnly] public ControllerData data;
     
     [HideInInspector] public VrHardware hardwarePart;
     [HideInInspector] public bool initialized;
     
     private InputDevice _device;
-    private Collider _proximityItem;
     private Transform _transform;
     private Vector3 _teleportLocation;
     private Vector3 _position;
@@ -35,6 +35,9 @@ namespace TawVR.Runtime.VrHandling
     private bool _byReset;
     private float _clickValue;
     private float _releaseValue;
+    
+    private Collider _proximityGrabbableItem;
+    private Collider _proximityRotateableItem;
     
     public void Init(InputDevice inputDevice, VrHardware hwPart)
     {
@@ -75,36 +78,34 @@ namespace TawVR.Runtime.VrHandling
     private void OnTriggerEnter(Collider other)
     {
       SendHaptic();
-      Grabbable grabbable = other.GetComponent<Grabbable>();
-      if (grabbable == null) return;
-
-      _proximityItem = other;
+      if (other.GetComponent<Grabbable>() != null) _proximityGrabbableItem = other;
+      if (other.GetComponent<Rotateable>() != null) _proximityRotateableItem = other;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
       SendHaptic();
-      Grabbable grabbable = collision.collider.GetComponent<Grabbable>();
-      if (grabbable == null) return;
-
-      _proximityItem = collision.collider;
+      if (collision.collider.GetComponent<Grabbable>() != null) _proximityGrabbableItem = collision.collider;
+      if (collision.collider.GetComponent<Rotateable>() != null) _proximityRotateableItem = collision.collider;
     }
 
     private void OnTriggerExit(Collider other)
     {
-      if (_proximityItem == other) _proximityItem = null;
+      if (_proximityGrabbableItem == other) _proximityGrabbableItem = null;
+      if (_proximityRotateableItem == other) _proximityRotateableItem = null;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-      if (_proximityItem == collision.collider) _proximityItem = null;
+      if (_proximityGrabbableItem == collision.collider) _proximityGrabbableItem = null;
+      if (_proximityRotateableItem == collision.collider) _proximityRotateableItem = null;
     }
 
     public void GrabObject() // Attempts to grab the item that is being interacted with
     {
-      if (_proximityItem == null) return;
+      if (_proximityGrabbableItem == null) return;
 
-      grabbedObject = _proximityItem.GetComponent<Grabbable>();
+      grabbedObject = _proximityGrabbableItem.GetComponent<Grabbable>();
       grabbedObject.OnGrabbed(this);
     }
 
@@ -114,6 +115,21 @@ namespace TawVR.Runtime.VrHandling
 
       grabbedObject.OnReleased();
       grabbedObject = null;
+    }
+
+    public void RotateObject()
+    {
+      if (_proximityRotateableItem == null) return;
+      if (rotatedObject == null) rotatedObject = _proximityRotateableItem.GetComponent<Rotateable>();
+      
+      rotatedObject.Rotate(this);
+    }
+
+    public void StopRotatingObject()
+    {
+      if (rotatedObject == null) return;
+      rotatedObject.FinishRotation();
+      rotatedObject = null;
     }
 
     #endregion
