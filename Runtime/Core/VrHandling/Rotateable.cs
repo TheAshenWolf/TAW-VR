@@ -9,10 +9,6 @@ namespace TAW_VR.Runtime.Core.VrHandling
   {
     [Title("Settings")] public bool canBeRotated;
 
-    public bool rotateAlongX;
-    public bool rotateAlongY;
-    public bool rotateAlongZ;
-
     [Title("Details")] public Controller rotatingWith;
 
     [Title("Privates")] private bool _isRotating;
