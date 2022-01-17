@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace TawVR.Editor.Grabbable
+namespace TAW_VR.Editor.GameObjectEditors
 {
-  [CustomEditor(typeof(Runtime.Core.VrHandling.Grabbable))]
+  [CustomEditor(typeof(TawVR.Runtime.Core.VrHandling.Grabbable))]
   public class GrabbableEditor : UnityEditor.Editor
   {
     private List<GUIContent> _toolbarIconsList = new List<GUIContent>();
     private GUIContent[] _toolbarIcons;
-    private Runtime.Core.VrHandling.Grabbable _grabbable;
+    private TawVR.Runtime.Core.VrHandling.Grabbable _grabbable;
     private int _toolbarTab;
 
     private SerializedProperty _settings_canBeGrabbed;
@@ -24,7 +23,7 @@ namespace TawVR.Editor.Grabbable
     
     private void OnEnable()
     {
-      _grabbable = (Runtime.Core.VrHandling.Grabbable)target;
+      _grabbable = (TawVR.Runtime.Core.VrHandling.Grabbable)target;
       _toolbarIconsList.Add(new GUIContent(Resources.Load("ToolbarIcons/Settings") as Texture, "Settings"));
       _toolbarIconsList.Add(new GUIContent(Resources.Load("ToolbarIcons/Info") as Texture, "Details"));
 

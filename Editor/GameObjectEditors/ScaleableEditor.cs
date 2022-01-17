@@ -1,34 +1,35 @@
-﻿using System.Collections.Generic;
-using TAW_VR.Runtime.Core.VrHandling;
+﻿using System;
+using System.Collections.Generic;
+using TAW_VR.Runtime.Core.GameObjectScripts;
 using UnityEditor;
 using UnityEngine;
 
 namespace TAW_VR.Editor.GameObjectEditors
 {
-  [CustomEditor(typeof(Rotateable))]
-  public class RotateableEditor : UnityEditor.Editor
+  [CustomEditor(typeof(Scaleable))]
+  public class ScaleableEditor : UnityEditor.Editor
   {
     private List<GUIContent> _toolbarIconsList = new List<GUIContent>();
     private GUIContent[] _toolbarIcons;
-    private Rotateable _rotateable;
+    private Scaleable _scaleable;
     private int _toolbarTab;
-
-    private SerializedProperty _settings_canBeRotated;
-
-    private SerializedProperty _details_rotatingWith;
+    
+    private SerializedProperty _settings_canBeScaled;
+    
+    private SerializedProperty _details_scalingWith;
 
     private void OnEnable()
     {
-      _rotateable = (Rotateable)target;
+      _scaleable = (Scaleable)target;
       _toolbarIconsList.Add(new GUIContent(Resources.Load("ToolbarIcons/Settings") as Texture, "Settings"));
       _toolbarIconsList.Add(new GUIContent(Resources.Load("ToolbarIcons/Info") as Texture, "Details"));
 
       _toolbarIcons = _toolbarIconsList.ToArray();
 
-      _settings_canBeRotated = serializedObject.FindProperty(nameof(_rotateable.canBeRotated));
-      _details_rotatingWith = serializedObject.FindProperty(nameof(_rotateable.rotatingWith));
+      _settings_canBeScaled = serializedObject.FindProperty(nameof(_scaleable.canBeScaled));
+      _details_scalingWith = serializedObject.FindProperty(nameof(_scaleable.scalingWith));
     }
-
+    
     public override void OnInspectorGUI()
     {
       GUIStyle middleLabelStyle = new GUIStyle(GUI.skin.label)
@@ -46,9 +47,9 @@ namespace TAW_VR.Editor.GameObjectEditors
           GUILayout.Label("<b>Settings</b>", middleLabelStyle);
           EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-          EditorGUILayout.PropertyField(_settings_canBeRotated,
-            new GUIContent("Can be rotated",
-              "If disabled, the object can't be rotated. Can be used to temporarily disable rotation."));
+          EditorGUILayout.PropertyField(_settings_canBeScaled,
+            new GUIContent("Can be scaled",
+              "If disabled, the object can't be scaled. Can be used to temporarily disable scaling."));
           break;
         case 1:
           GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
@@ -56,8 +57,8 @@ namespace TAW_VR.Editor.GameObjectEditors
           EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
           GUI.enabled = false;
-          EditorGUILayout.PropertyField(_details_rotatingWith,
-            new GUIContent("Rotating with", "The controller that is currently rotating this object."));
+          EditorGUILayout.PropertyField(_details_scalingWith,
+            new GUIContent("Scaling with", "The controller that is currently scaling this object."));
           GUI.enabled = true;
           break;
       }
