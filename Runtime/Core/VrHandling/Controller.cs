@@ -36,6 +36,8 @@ namespace TawVR.Runtime.VrHandling
     private bool _byReset;
     private float _clickValue;
     private float _releaseValue;
+
+    private bool _disposeRotateable;
     
     private Collider _proximityGrabbableItem;
     private Collider _proximityRotateableItem;
@@ -94,7 +96,17 @@ namespace TawVR.Runtime.VrHandling
     private void OnTriggerExit(Collider other)
     {
       if (_proximityGrabbableItem == other) _proximityGrabbableItem = null;
-      if (_proximityRotateableItem == other) _proximityRotateableItem = null;
+      if (_proximityRotateableItem == other)
+      {
+        if (rotatedObject != null)
+        {
+          _disposeRotateable = true;
+        }
+        else
+        {
+          _proximityRotateableItem = null;
+        }
+      }
     }
 
     private void OnCollisionExit(Collision collision)
@@ -132,6 +144,8 @@ namespace TawVR.Runtime.VrHandling
       if (rotatedObject == null) return;
       rotatedObject.FinishRotation();
       rotatedObject = null;
+
+      if (_disposeRotateable) _proximityRotateableItem = null;
     }
 
     #endregion
