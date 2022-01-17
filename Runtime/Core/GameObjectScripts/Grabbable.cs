@@ -93,6 +93,8 @@ namespace TawVR.Runtime.Core.VrHandling
         _rigidbody.angularVelocity = grabbedBy.data.angularVelocity;
       }
 
+      grabbedBy = null;
+
       onReleased?.Invoke();
     }
   }

@@ -11,20 +11,20 @@ namespace TawVR.Runtime.VrHandling
 {
   public abstract class Controller : MonoBehaviour
   {
-    [Title("Components")]
-    [Required] public VrRig hmd;
+    [Title("Components")] [Required] public VrRig hmd;
     public LineRenderer lineRenderer;
     public Collider triggerCollider;
-    
-    [Title("Information")]
-    [ReadOnly] public Grabbable grabbedObject;
+    public Transform pointerHead;
+
+    [Title("Information")] [ReadOnly] public Grabbable grabbedObject;
     [ReadOnly] public Rotateable rotatedObject;
     [ReadOnly] public Scaleable scaledObject;
     [ReadOnly] public ControllerData data;
-    
+
     [HideInInspector] public VrHardware hardwarePart;
     [HideInInspector] public bool initialized;
-    
+    [HideInInspector] public Vector3 pointerPosition => pointerHead.position;
+
     private InputDevice _device;
     private Transform _transform;
     private Vector3 _teleportLocation;
@@ -36,17 +36,18 @@ namespace TawVR.Runtime.VrHandling
     private bool _joystickReset;
     private bool _axReset;
     private bool _byReset;
-    
+
     private float _clickValue;
     private float _releaseValue;
-    
+
     private Collider _proximityGrabbableItem;
     private Collider _proximityRotateableItem;
     private Collider _proximityScaleableItem;
-    
+
     private bool _disposeRotateable;
     private bool _disposeScaleable;
-    
+    private bool _disposeGrabbable;
+
     public void Init(InputDevice inputDevice, VrHardware hwPart)
     {
       _device = inputDevice;
@@ -67,11 +68,11 @@ namespace TawVR.Runtime.VrHandling
     private void Update()
     {
       if (!initialized) return;
-      
+
       _position = _transform.position;
       _transform.localPosition = data.position;
       _transform.localRotation = data.rotation;
-      
+
       Teleportation();
       HandleCalls();
     }
@@ -85,7 +86,7 @@ namespace TawVR.Runtime.VrHandling
 
     private void OnTriggerEnter(Collider other)
     {
-      SendHaptic(.2f);
+      if (scaledObject == null && grabbedObject == null && rotatedObject == null) SendHaptic(.2f);
       if (other.GetComponent<Grabbable>() != null) _proximityGrabbableItem = other;
       if (other.GetComponent<Rotateable>() != null) _proximityRotateableItem = other;
       if (other.GetComponent<Scaleable>() != null) _proximityScaleableItem = other;
@@ -93,7 +94,7 @@ namespace TawVR.Runtime.VrHandling
 
     private void OnCollisionEnter(Collision collision)
     {
-      SendHaptic(.2f);
+      if (scaledObject == null && grabbedObject == null && rotatedObject == null) SendHaptic(.2f);
       if (collision.collider.GetComponent<Grabbable>() != null) _proximityGrabbableItem = collision.collider;
       if (collision.collider.GetComponent<Rotateable>() != null) _proximityRotateableItem = collision.collider;
       if (collision.collider.GetComponent<Scaleable>() != null) _proximityScaleableItem = collision.collider;
@@ -101,12 +102,18 @@ namespace TawVR.Runtime.VrHandling
 
     private void OnTriggerExit(Collider other)
     {
-      if (_proximityGrabbableItem == other) _proximityGrabbableItem = null;
+      if (_proximityGrabbableItem == other)
+      {
+        if (grabbedObject != null) _disposeGrabbable = true;
+        else _proximityGrabbableItem = null;
+      }
+
       if (_proximityRotateableItem == other)
       {
         if (rotatedObject != null) _disposeRotateable = true;
         else _proximityRotateableItem = null;
       }
+
       if (_proximityScaleableItem == other)
       {
         if (scaledObject != null) _disposeScaleable = true;
@@ -116,12 +123,18 @@ namespace TawVR.Runtime.VrHandling
 
     private void OnCollisionExit(Collision collision)
     {
-      if (_proximityGrabbableItem == collision.collider) _proximityGrabbableItem = null;
+      if (_proximityGrabbableItem == collision.collider)
+      {
+        if (grabbedObject != null) _disposeGrabbable = true;
+        else _proximityGrabbableItem = null;
+      }
+
       if (_proximityRotateableItem == collision.collider)
       {
         if (rotatedObject != null) _disposeRotateable = true;
         else _proximityRotateableItem = null;
       }
+
       if (_proximityScaleableItem == collision.collider)
       {
         if (scaledObject != null) _disposeScaleable = true;
@@ -133,7 +146,7 @@ namespace TawVR.Runtime.VrHandling
     {
       if (_proximityGrabbableItem == null) return;
 
-      grabbedObject = _proximityGrabbableItem.GetComponent<Grabbable>();
+      if (grabbedObject == null) grabbedObject = _proximityGrabbableItem.GetComponent<Grabbable>();
       grabbedObject.OnGrabbed(this);
     }
 
@@ -143,13 +156,14 @@ namespace TawVR.Runtime.VrHandling
 
       grabbedObject.OnReleased();
       grabbedObject = null;
+      if (_disposeGrabbable) _proximityGrabbableItem = null;
     }
 
     public void RotateObject()
     {
       if (_proximityRotateableItem == null) return;
       if (rotatedObject == null) rotatedObject = _proximityRotateableItem.GetComponent<Rotateable>();
-      
+
       rotatedObject.Rotate(this);
     }
 
@@ -161,12 +175,12 @@ namespace TawVR.Runtime.VrHandling
 
       if (_disposeRotateable) _proximityRotateableItem = null;
     }
-    
+
     public void ScaleObject()
     {
       if (_proximityScaleableItem == null) return;
       if (scaledObject == null) scaledObject = _proximityScaleableItem.GetComponent<Scaleable>();
-      
+
       scaledObject.Scale(this);
     }
 
@@ -337,7 +351,7 @@ namespace TawVR.Runtime.VrHandling
           if (!_axReset) hmd.buttonXRelease?.Invoke();
           _axReset = true;
         }
-        
+
         if (_byReset && data.byButtonHold)
         {
           hmd.buttonYClick?.Invoke();
@@ -348,7 +362,7 @@ namespace TawVR.Runtime.VrHandling
           if (!_byReset) hmd.buttonYRelease?.Invoke();
           _byReset = true;
         }
-        
+
         if (_joystickReset && data.joystickHold)
         {
           hmd.leftJoystickClick?.Invoke();
@@ -391,7 +405,7 @@ namespace TawVR.Runtime.VrHandling
           _onTriggerPressureDown = false;
           hmd.rightGripRelease?.Invoke();
         }
-        
+
         if (_axReset && data.axButtonHold)
         {
           hmd.buttonXClick?.Invoke();
@@ -402,7 +416,7 @@ namespace TawVR.Runtime.VrHandling
           if (!_axReset) hmd.buttonARelease?.Invoke();
           _axReset = true;
         }
-        
+
         if (_byReset && data.byButtonHold)
         {
           hmd.buttonYClick?.Invoke();
@@ -413,7 +427,7 @@ namespace TawVR.Runtime.VrHandling
           if (!_byReset) hmd.buttonBRelease?.Invoke();
           _byReset = true;
         }
-        
+
         if (_joystickReset && data.joystickHold)
         {
           hmd.rightJoystickClick?.Invoke();
@@ -452,7 +466,7 @@ namespace TawVR.Runtime.VrHandling
       _device.TryGetFeatureValue(CommonUsages.secondaryButton, out controllerData.byButtonHold);
       _device.TryGetFeatureValue(CommonUsages.primary2DAxis, out controllerData.joystickAxis);
       _device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out controllerData.joystickHold);
-      
+
       data = controllerData;
     }
 

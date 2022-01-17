@@ -8,7 +8,7 @@ namespace TAW_VR.Runtime.Core.GameObjectScripts
   public class Scaleable : MonoBehaviour
   {
     [Title("Settings")] 
-    public bool canBeScaled;
+    public bool canBeScaled = true;
 
     [Title("Details")] 
     public Controller scalingWith;
@@ -18,6 +18,7 @@ namespace TAW_VR.Runtime.Core.GameObjectScripts
     private Transform _transform;
     private Vector3 _startingPoint;
     private float _baseVelocity;
+    private Vector3 _originalScale;
 
     private void Start()
     {
@@ -30,12 +31,14 @@ namespace TAW_VR.Runtime.Core.GameObjectScripts
 
       if (!_isScaling)
       {
-        _baseVelocity = Vector3.Distance(controller.transform.position, _transform.position);
+        _baseVelocity = Vector3.Distance(controller.pointerPosition, _transform.position);
+        _originalScale = _transform.localScale;
         scalingWith = controller;
+        _isScaling = true;
       }
 
-      float currentVelocity = Vector3.Distance(controller.transform.position, _transform.position);
-      _transform.localScale = Vector3.one * (currentVelocity / _baseVelocity);
+      float currentVelocity = Vector3.Distance(controller.pointerPosition, _transform.position);
+      _transform.localScale = _originalScale * (currentVelocity / _baseVelocity);
     }
 
     public void FinishScaling()

@@ -326,8 +326,10 @@ MonoBehaviour:
   hmd: {fileID: 6241150597362259309}
   lineRenderer: {fileID: 487234468954802572}
   triggerCollider: {fileID: 5739556597297074939}
+  pointerHead: {fileID: 6322620196921599551}
   grabbedObject: {fileID: 0}
   rotatedObject: {fileID: 0}
+  scaledObject: {fileID: 0}
   data:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -1000,8 +1002,10 @@ MonoBehaviour:
   hmd: {fileID: 6241150597362259309}
   lineRenderer: {fileID: 515916735244379374}
   triggerCollider: {fileID: 1252903634465210385}
+  pointerHead: {fileID: 8330711588776585961}
   grabbedObject: {fileID: 0}
   rotatedObject: {fileID: 0}
+  scaledObject: {fileID: 0}
   data:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}

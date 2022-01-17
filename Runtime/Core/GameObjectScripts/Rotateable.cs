@@ -7,7 +7,7 @@ namespace TAW_VR.Runtime.Core.VrHandling
   [DisallowMultipleComponent, RequireComponent(typeof(Collider)), RequireComponent(typeof(Rigidbody))]
   public class Rotateable : MonoBehaviour
   {
-    [Title("Settings")] public bool canBeRotated;
+    [Title("Settings")] public bool canBeRotated = true;
 
     [Title("Details")] public Controller rotatingWith;
 
@@ -28,13 +28,13 @@ namespace TAW_VR.Runtime.Core.VrHandling
 
       if (!_isRotating)
       {
-        _startingPoint = Vector3.Normalize(controller.transform.position - _transform.position);
+        _startingPoint = Vector3.Normalize(controller.pointerPosition - _transform.position);
         _currentRotation = _transform.rotation;
         rotatingWith = controller;
         _isRotating = true;
       }
 
-      Vector3 closestPoint = Vector3.Normalize(controller.transform.position - _transform.position);
+      Vector3 closestPoint = Vector3.Normalize(controller.pointerPosition - _transform.position);
       _transform.rotation = Quaternion.FromToRotation(_startingPoint, closestPoint) * _currentRotation;
     }
 
