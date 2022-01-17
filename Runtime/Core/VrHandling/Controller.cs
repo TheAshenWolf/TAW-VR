@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using TAW_VR.Runtime.Core.GameObjectScripts;
 using TAW_VR.Runtime.Core.VrHandling;
 using TawVR.Runtime.Core.VrHandling;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace TawVR.Runtime.VrHandling
     [Title("Information")]
     [ReadOnly] public Grabbable grabbedObject;
     [ReadOnly] public Rotateable rotatedObject;
+    [ReadOnly] public Scaleable scaledObject;
     [ReadOnly] public ControllerData data;
     
     [HideInInspector] public VrHardware hardwarePart;
@@ -34,13 +36,16 @@ namespace TawVR.Runtime.VrHandling
     private bool _joystickReset;
     private bool _axReset;
     private bool _byReset;
+    
     private float _clickValue;
     private float _releaseValue;
-
-    private bool _disposeRotateable;
     
     private Collider _proximityGrabbableItem;
     private Collider _proximityRotateableItem;
+    private Collider _proximityScaleableItem;
+    
+    private bool _disposeRotateable;
+    private bool _disposeScaleable;
     
     public void Init(InputDevice inputDevice, VrHardware hwPart)
     {
@@ -83,14 +88,15 @@ namespace TawVR.Runtime.VrHandling
       SendHaptic(.2f);
       if (other.GetComponent<Grabbable>() != null) _proximityGrabbableItem = other;
       if (other.GetComponent<Rotateable>() != null) _proximityRotateableItem = other;
+      if (other.GetComponent<Scaleable>() != null) _proximityScaleableItem = other;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-      Debug.LogError("Collision in");
       SendHaptic(.2f);
       if (collision.collider.GetComponent<Grabbable>() != null) _proximityGrabbableItem = collision.collider;
       if (collision.collider.GetComponent<Rotateable>() != null) _proximityRotateableItem = collision.collider;
+      if (collision.collider.GetComponent<Scaleable>() != null) _proximityScaleableItem = collision.collider;
     }
 
     private void OnTriggerExit(Collider other)
@@ -98,21 +104,29 @@ namespace TawVR.Runtime.VrHandling
       if (_proximityGrabbableItem == other) _proximityGrabbableItem = null;
       if (_proximityRotateableItem == other)
       {
-        if (rotatedObject != null)
-        {
-          _disposeRotateable = true;
-        }
-        else
-        {
-          _proximityRotateableItem = null;
-        }
+        if (rotatedObject != null) _disposeRotateable = true;
+        else _proximityRotateableItem = null;
+      }
+      if (_proximityScaleableItem == other)
+      {
+        if (scaledObject != null) _disposeScaleable = true;
+        else _proximityScaleableItem = null;
       }
     }
 
     private void OnCollisionExit(Collision collision)
     {
       if (_proximityGrabbableItem == collision.collider) _proximityGrabbableItem = null;
-      if (_proximityRotateableItem == collision.collider) _proximityRotateableItem = null;
+      if (_proximityRotateableItem == collision.collider)
+      {
+        if (rotatedObject != null) _disposeRotateable = true;
+        else _proximityRotateableItem = null;
+      }
+      if (_proximityScaleableItem == collision.collider)
+      {
+        if (scaledObject != null) _disposeScaleable = true;
+        else _proximityScaleableItem = null;
+      }
     }
 
     public void GrabObject() // Attempts to grab the item that is being interacted with
@@ -146,6 +160,23 @@ namespace TawVR.Runtime.VrHandling
       rotatedObject = null;
 
       if (_disposeRotateable) _proximityRotateableItem = null;
+    }
+    
+    public void ScaleObject()
+    {
+      if (_proximityScaleableItem == null) return;
+      if (scaledObject == null) scaledObject = _proximityScaleableItem.GetComponent<Scaleable>();
+      
+      scaledObject.Scale(this);
+    }
+
+    public void StopScalingObject()
+    {
+      if (scaledObject == null) return;
+      scaledObject.FinishScaling();
+      scaledObject = null;
+
+      if (_disposeScaleable) _proximityScaleableItem = null;
     }
 
     #endregion
