@@ -32,6 +32,8 @@ namespace TAW_VR.Runtime.Core.Drawing
     private bool _isDrawing;
     private Shader _drawingShader;
     private Vector2 _collisionCoordinates;
+    private MeshCollider _meshCollider;
+    private RaycastHit _hit;
 
     private void Start()
     {
@@ -82,18 +84,39 @@ namespace TAW_VR.Runtime.Core.Drawing
 
     private void OnCollisionStay(Collision collision)
     {
+      DrawingBrush brush = collision.transform.GetComponent<DrawingBrush>();
+      if (brush == null) return;
+      
       List<Vector3> contactPoints = collision.contacts.Select(x => x.point).ToList();
       Vector3 averageImpact = new Vector3(0, 0, 0);
       contactPoints.ForEach(point => averageImpact += point);
       averageImpact /= collision.contactCount;
-      
-      
+
+      Vector3 closestPointOnBounds = _meshCollider.ClosestPointOnBounds(averageImpact);
+      Vector3 brushPosition = brush.brushHead.position;
+
+
+      if (Physics.Raycast(brushPosition, closestPointOnBounds - brushPosition, out _hit))
+      {
+        _collisionCoordinates = new Vector2(_hit.textureCoord2.x, _hit.textureCoord2.y);
+        _isDrawing = true;
+      }
+      else _isDrawing = false;
     }
 
     private void OnTriggerStay(Collider other)
     {
-      //other.ClosestPointOnBounds()
-      throw new NotImplementedException();
+      DrawingBrush brush = other.GetComponent<DrawingBrush>();
+      if (brush == null) return;
+      Vector3 brushPosition = brush.brushHead.position;
+      Vector3 closestPointOnBounds = _meshCollider.ClosestPointOnBounds(brushPosition);
+      
+      if (Physics.Raycast(brushPosition, closestPointOnBounds - brushPosition, out _hit))
+      {
+        _collisionCoordinates = new Vector2(_hit.textureCoord2.x, _hit.textureCoord2.y);
+        _isDrawing = true;
+      }
+      else _isDrawing = false;
     }
   }
 }
