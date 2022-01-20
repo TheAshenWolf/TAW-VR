@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TAW_VR.Runtime.Core.OtherScripts
+namespace TAW_VR.Runtime.Core.Drawing
 {
   public class MouseDrawing : MonoBehaviour
   {

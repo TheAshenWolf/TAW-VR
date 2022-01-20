@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TAW_VR.Runtime.Core.OtherScripts
+namespace TAW_VR.Runtime.Core.Drawing
 {
   public class DrawingBase : MonoBehaviour
   {
@@ -10,11 +10,9 @@ namespace TAW_VR.Runtime.Core.OtherScripts
 
     [SerializeField] private Shader shader;
 
-    private Camera _camera;
     private Material _drawMaterial, _baseMaterial, _originalMaterial;
     private RenderTexture _splatMap;
     private Renderer _meshRenderer;
-    private bool _isDrawing;
 
     private void Start()
     {
