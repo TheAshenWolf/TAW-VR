@@ -18,8 +18,8 @@ namespace TAW_VR.Runtime.Core.Drawing
     private void OnTriggerEnter(Collider other)
     {
       DrawingColorSource colorSource = other.GetComponent<DrawingColorSource>();
+      
       if (colorSource == null) return;
-
       brushColor = colorSource.sourceColor;
       brushColor.a = 1;
       meshRenderer.material.color = brushColor;

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TAW_VR.Runtime.Core.Drawing
 {
@@ -10,11 +9,13 @@ namespace TAW_VR.Runtime.Core.Drawing
 
     private void Start()
     {
+      sourceColor.a = 1;
       colorRenderer.material.color = sourceColor;
     }
 
     private void OnDrawGizmos()
     {
+      sourceColor.a = 1;
       Gizmos.color = sourceColor;
       Gizmos.DrawSphere(transform.position + new Vector3(0, .15f, 0), .05f);
     }
