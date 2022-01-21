@@ -1,4 +1,4 @@
-﻿Shader "Unlit/DrawingShader"
+﻿Shader "Unlit/DrawingUnlit"
 {
     Properties
     {
@@ -7,7 +7,6 @@
         [PerRendererData] _Coordinate("Coordinate", Vector) = (0,0,0,0)
         [PerRendererData] _DrawColor("Draw Color", Color) = (1,0,0,0)
         [PerRendererData] _IsDrawing("Is drawing", float) = 0
-        [PerRendererData] _Color ("Color", Color) = (1,1,1,1)
     }
     SubShader
     {
@@ -38,7 +37,7 @@
 
             sampler2D _MainTex, _Splat;
             float4 _MainTex_ST, _Splat_ST;
-            fixed4 _Coordinate, _DrawColor, _Color;
+            fixed4 _Coordinate, _DrawColor;
             int _IsDrawing;
 
             v2f vert (appdata v)
@@ -53,7 +52,7 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 baseColor = tex2D(_MainTex, i.uv) * _Color;
+                fixed4 baseColor = tex2D(_MainTex, i.uv);
                 fixed4 splatColor = tex2D(_Splat, i.uv1);
                 float draw = (saturate(1 - distance(i.uv1, _Coordinate.xy)) > 0.99) * _IsDrawing;
                 fixed4 drawColor = _DrawColor * (draw * 1);

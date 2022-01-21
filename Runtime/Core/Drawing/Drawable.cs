@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
-using TAW_VR.Runtime.Core.EnumsAndStructs;
 using UnityEngine;
 
 namespace TAW_VR.Runtime.Core.Drawing
@@ -16,13 +11,12 @@ namespace TAW_VR.Runtime.Core.Drawing
     [Title("Settings")]
     [Range(5, 13)]
     public int texturePower = 10;
-    public DrawingShaderMode drawingShaderMode = DrawingShaderMode.UnlitOpaque;
 
     [Title("Details")] 
     public RenderTexture splatMap;
     
     [Title("Privates")] 
-    [SerializeField] private int _textureSize;
+    private int _textureSize;
     private MeshRenderer _meshRenderer;
     private Material _drawMaterial;
     private Material _originalMaterial;
@@ -39,20 +33,8 @@ namespace TAW_VR.Runtime.Core.Drawing
       _textureSize = 2 << texturePower - 1;
       _meshRenderer = GetComponent<MeshRenderer>();
       _originalMaterial = _meshRenderer.material;
-
-      /*switch (drawingShaderMode)
-      {
-        case DrawingShaderMode.Surface:
-          break;
-        case DrawingShaderMode.UnlitOpaque:
-          break;
-        case DrawingShaderMode.Transparent:
-          break;
-        default:
-          throw new ArgumentOutOfRangeException(nameof(drawingShaderMode),"This shader mode does not exist");
-      }*/
-        _drawingShader = _drawingShader = Shader.Find("Unlit/DrawingShader");
-        _baseMaterial = new Material(_drawingShader)
+      _drawingShader = _drawingShader = Shader.Find("Unlit/DrawingUnlit");
+      _baseMaterial = new Material(_drawingShader)
         {
           mainTexture = _originalMaterial.mainTexture,
           color = _originalMaterial.color
@@ -98,7 +80,7 @@ namespace TAW_VR.Runtime.Core.Drawing
       
       Vector3 brushPosition = brush.brushHead.position;
 
-      if (Physics.Raycast(brushPosition, brush.transform.forward, out _hit))
+      if (Physics.Raycast(brushPosition, transform.position - brushPosition, out _hit))
       {
         _collisionCoordinates = new Vector2(_hit.textureCoord2.x, _hit.textureCoord2.y);
         _isDrawing = true;
@@ -121,9 +103,8 @@ namespace TAW_VR.Runtime.Core.Drawing
       
       Vector3 brushPosition = brush.brushHead.position;
       
-      if (Physics.Raycast(brushPosition,  brush.transform.forward, out _hit))
+      if (Physics.Raycast(brushPosition,  transform.position - brushPosition, out _hit))
       {
-        Debug.LogError("hit");
         _collisionCoordinates = new Vector2(_hit.textureCoord2.x, _hit.textureCoord2.y);
         _isDrawing = true;
       }
