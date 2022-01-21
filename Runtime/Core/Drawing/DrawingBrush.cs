@@ -7,7 +7,8 @@ namespace TAW_VR.Runtime.Core.Drawing
     public Transform brushHead;
     [ColorUsage(false)] public Color brushColor;
     public MeshRenderer meshRenderer;
-    public LayerMask layerMask;
+    [Range(1, 10)]
+    public int brushSize = 1;
 
     private void Start()
     {

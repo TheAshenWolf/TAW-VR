@@ -9,7 +9,7 @@ namespace TAW_VR.Runtime.Core.Drawing
     [Title("Components")]
     
     [Title("Settings")]
-    [Range(5, 13)]
+    [Range(5, 11)]
     public int texturePower = 10;
 
     [Title("Details")] 
@@ -24,12 +24,10 @@ namespace TAW_VR.Runtime.Core.Drawing
     private bool _isDrawing;
     private Shader _drawingShader;
     private Vector2 _collisionCoordinates;
-    private MeshCollider _meshCollider;
     private RaycastHit _hit;
 
     private void Start()
     {
-      _meshCollider = GetComponent<MeshCollider>();
       _textureSize = 2 << texturePower - 1;
       _meshRenderer = GetComponent<MeshRenderer>();
       _originalMaterial = _meshRenderer.material;
@@ -70,6 +68,7 @@ namespace TAW_VR.Runtime.Core.Drawing
       if (brush == null) return;
       
       _drawMaterial.SetVector("_DrawColor", brush.brushColor);
+      _drawMaterial.SetFloat("_BrushSize", 1 - 0.001f * brush.brushSize);
     }
 
     private void OnCollisionStay(Collision collision)
@@ -80,7 +79,7 @@ namespace TAW_VR.Runtime.Core.Drawing
       
       Vector3 brushPosition = brush.brushHead.position;
 
-      if (Physics.Raycast(brushPosition, transform.position - brushPosition, out _hit))
+      if (Physics.Raycast(brushPosition, brush.transform.forward, out _hit))
       {
         _collisionCoordinates = new Vector2(_hit.textureCoord2.x, _hit.textureCoord2.y);
         _isDrawing = true;
@@ -94,6 +93,7 @@ namespace TAW_VR.Runtime.Core.Drawing
       if (brush == null) return;
       
       _drawMaterial.SetVector("_DrawColor", brush.brushColor);
+      _drawMaterial.SetFloat("_BrushSize", 1 - 0.001f * brush.brushSize);
     }
 
     private void OnTriggerStay(Collider other)
@@ -103,7 +103,7 @@ namespace TAW_VR.Runtime.Core.Drawing
       
       Vector3 brushPosition = brush.brushHead.position;
       
-      if (Physics.Raycast(brushPosition,  transform.position - brushPosition, out _hit))
+      if (Physics.Raycast(brushPosition,  brush.transform.forward, out _hit))
       {
         _collisionCoordinates = new Vector2(_hit.textureCoord2.x, _hit.textureCoord2.y);
         _isDrawing = true;

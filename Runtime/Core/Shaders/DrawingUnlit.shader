@@ -7,6 +7,7 @@
         [PerRendererData] _Coordinate("Coordinate", Vector) = (0,0,0,0)
         [PerRendererData] _DrawColor("Draw Color", Color) = (1,0,0,0)
         [PerRendererData] _IsDrawing("Is drawing", float) = 0
+        [PerRendererData] _BrushSize("Brush size", float) = 0.999
     }
     SubShader
     {
@@ -39,6 +40,7 @@
             float4 _MainTex_ST, _Splat_ST;
             fixed4 _Coordinate, _DrawColor;
             int _IsDrawing;
+            float _BrushSize;
 
             v2f vert (appdata v)
             {
@@ -54,7 +56,7 @@
                 // sample the texture
                 fixed4 baseColor = tex2D(_MainTex, i.uv);
                 fixed4 splatColor = tex2D(_Splat, i.uv1);
-                float draw = (saturate(1 - distance(i.uv1, _Coordinate.xy)) > 0.99) * _IsDrawing;
+                float draw = (saturate(1 - distance(i.uv1, _Coordinate.xy)) > _BrushSize) * _IsDrawing;
                 fixed4 drawColor = _DrawColor * (draw * 1);
 
                 //fixed4 finalColor =  ((drawColor+splatColor) > fixed4(0,0,0,0)) ? drawColor+splatColor : baseColor+splatColor+drawColor;

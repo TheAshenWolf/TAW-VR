@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7534862770700768896
 Transform:
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorRenderer: {fileID: 7534862770700768898}
-  sourceColor: {r: 0, g: 0, b: 0, a: 0}
+  sourceColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!65 &1443441069610265386
 BoxCollider:
   m_ObjectHideFlags: 0
