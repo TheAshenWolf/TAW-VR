@@ -17,7 +17,7 @@ namespace TAW_VR.Runtime.Core.Drawing
     {
       sourceColor.a = 1;
       Gizmos.color = sourceColor;
-      Gizmos.DrawSphere(transform.position + new Vector3(0, .15f, 0), .05f);
+      Gizmos.DrawSphere(transform.position + new Vector3(0, .05f, 0), .025f);
     }
   }
 }
