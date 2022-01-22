@@ -6,8 +6,6 @@ namespace TAW_VR.Runtime.Core.Drawing
   [DisallowMultipleComponent, RequireComponent(typeof(MeshCollider)), RequireComponent(typeof(Rigidbody))]
   public class Drawable : MonoBehaviour
   {
-    [Title("Components")]
-    
     [Title("Settings")]
     [Range(5, 11)]
     public int texturePower = 10;
