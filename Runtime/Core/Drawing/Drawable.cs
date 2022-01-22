@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -29,7 +30,7 @@ namespace TAW_VR.Runtime.Core.Drawing
       _textureSize = 2 << texturePower - 1;
       _meshRenderer = GetComponent<MeshRenderer>();
       _originalMaterial = _meshRenderer.material;
-      _drawingShader = _drawingShader = Shader.Find("Unlit/DrawingUnlit");
+      _drawingShader = _drawingShader = Shader.Find("Drawing/DrawingUnlit");
       _baseMaterial = new Material(_drawingShader)
         {
           mainTexture = _originalMaterial.mainTexture,

@@ -17,10 +17,6 @@ namespace TAW_VR.Editor.GameObjectEditors
     private int _toolbarTab;
     private int _texturePower;
 
-    private SerializedProperty _settings_texturePower;
-
-    private SerializedProperty _details_splatMap;
-
     private void OnEnable()
     {
       _drawable = (Drawable)target;
@@ -28,9 +24,6 @@ namespace TAW_VR.Editor.GameObjectEditors
       _toolbarIconsList.Add(new GUIContent(Resources.Load("ToolbarIcons/Info") as Texture, "Details"));
       
       _toolbarIcons = _toolbarIconsList.ToArray();
-
-      _settings_texturePower = serializedObject.FindProperty(nameof(_drawable.texturePower));
-      _details_splatMap = serializedObject.FindProperty(nameof(_drawable.splatMap));
 
       _texturePower = _drawable.texturePower;
     }
@@ -81,7 +74,14 @@ namespace TAW_VR.Editor.GameObjectEditors
           }
           else
           {
-            EditorGUI.DrawPreviewTexture(new Rect(0,0, 256, 256), _drawable.splatMap);
+            EditorGUILayout.BeginVertical(GUILayoutOptions.MinHeight(256));
+            GUILayout.Label("");
+            Rect textureRect = GUILayoutUtility.GetLastRect();
+            textureRect.position += new Vector2((textureRect.width - 256) / 2 , EditorGUIUtility.singleLineHeight);
+            textureRect.width = 256;
+            textureRect.height = 256;
+            EditorGUI.DrawPreviewTexture(textureRect, _drawable.splatMap);
+            EditorGUILayout.EndVertical();
           }
           break;
           

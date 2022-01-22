@@ -1,4 +1,4 @@
-﻿Shader "Unlit/DrawingUnlit"
+﻿Shader "Drawing/DrawingUnlit"
 {
     Properties
     {
