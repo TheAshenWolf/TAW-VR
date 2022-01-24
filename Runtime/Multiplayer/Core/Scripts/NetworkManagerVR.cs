@@ -5,9 +5,19 @@ namespace TAW_VR.Runtime.Multiplayer.Core.Scripts
 {
     public class NetworkManagerVR : NetworkManager
     {
-        public override void OnStartServer()
+        public override void Start()
         {
-            base.OnStartServer();
+            base.Start();
+
+            if (!isNetworkActive)
+            {
+                StartHost();
+            }
+            else
+            {
+                networkAddress = "localhost";
+                StartClient();
+            }
         }
     }
 }
