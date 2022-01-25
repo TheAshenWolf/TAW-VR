@@ -1,24 +1,23 @@
 ﻿#if MIRROR
 using Mirror;
+using UnityEngine;
 
 namespace TAW_VR.Runtime.Multiplayer.Core.Scripts
 {
     public class NetworkManagerVR : NetworkManager
     {
-        public override void Start()
+        /*public override void Start()
         {
             base.Start();
 
-            if (!isNetworkActive)
+            NetworkClient.OnDisconnectedEvent += () =>
             {
-                StartHost();
-            }
-            else
-            {
-                networkAddress = "localhost";
-                StartClient();
-            }
-        }
+                Debug.LogError("DC");
+            };
+            
+            networkAddress = "localhost";
+            StartClient();
+        }*/
     }
 }
 
