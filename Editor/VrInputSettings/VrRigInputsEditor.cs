@@ -111,6 +111,8 @@ namespace TawVR.Editor.VrInputSettings
     {
       MakeStyles();
 
+      serializedObject.Update();
+      
       EditorGUILayout.Space(35);
       SirenixEditorGUI.BeginBox(GUILayoutOptions.Height(700).Width(500));
       SirenixEditorGUI.BeginBoxHeader();
@@ -225,6 +227,8 @@ namespace TawVR.Editor.VrInputSettings
       }
 
       EditorGUI.indentLevel--;
+      
+      serializedObject.ApplyModifiedProperties();
     }
 
     private void MakeStyles()

@@ -38,6 +38,8 @@ namespace TAW_VR.Editor.GameObjectEditors
         alignment = TextAnchor.MiddleCenter,
         fontSize = 16
       };
+      
+      serializedObject.Update();
 
       _toolbarTab = GUILayout.Toolbar(_toolbarTab, _toolbarIcons);
       switch (_toolbarTab)
@@ -62,6 +64,8 @@ namespace TAW_VR.Editor.GameObjectEditors
           GUI.enabled = true;
           break;
       }
+      
+      serializedObject.ApplyModifiedProperties();
     }
   }
 }

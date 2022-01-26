@@ -94,6 +94,8 @@ namespace TawVR.Editor.VrInputSettings
         alignment = TextAnchor.MiddleCenter,
         richText = true
       };
+      
+      serializedObject.Update();
 
       _toolbarTab = GUILayout.Toolbar(_toolbarTab, _toolbarIcons);
       switch (_toolbarTab)
