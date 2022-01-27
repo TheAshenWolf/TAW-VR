@@ -375,7 +375,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -920,13 +920,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
         type: 3}
+      propertyPath: rightTriggerHold.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
+        type: 3}
       propertyPath: rightTriggerClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
         type: 3}
       propertyPath: rightTriggerRelease.m_PersistentCalls.m_Calls.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
+        type: 3}
+      propertyPath: rightTriggerHold.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
+        type: 3}
+      propertyPath: rightTriggerHold.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
         type: 3}
@@ -938,6 +953,16 @@ PrefabInstance:
       propertyPath: rightTriggerClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
+        type: 3}
+      propertyPath: rightTriggerHold.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1947390123}
+    - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
+        type: 3}
+      propertyPath: rightTriggerHold.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1947390123}
     - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
         type: 3}
       propertyPath: rightTriggerClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -960,6 +985,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
         type: 3}
+      propertyPath: rightTriggerHold.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
+        type: 3}
+      propertyPath: rightTriggerHold.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
+        type: 3}
       propertyPath: rightTriggerRelease.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1947390123}
@@ -977,6 +1012,16 @@ PrefabInstance:
         type: 3}
       propertyPath: rightTriggerClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
+        type: 3}
+      propertyPath: rightTriggerHold.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RotateObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
+        type: 3}
+      propertyPath: rightTriggerHold.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ScaleObject
       objectReference: {fileID: 0}
     - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
         type: 3}
@@ -1007,6 +1052,16 @@ PrefabInstance:
         type: 3}
       propertyPath: rightTriggerRelease.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: StopScalingObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
+        type: 3}
+      propertyPath: rightTriggerHold.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
+        type: 3}
+      propertyPath: rightTriggerHold.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6241150597362259309, guid: 272176574174ff34cba84486351535c2,
         type: 3}
@@ -1825,7 +1880,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

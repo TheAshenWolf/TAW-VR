@@ -1,5 +1,4 @@
-﻿using System;
-using Mirror;
+﻿using Mirror;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
