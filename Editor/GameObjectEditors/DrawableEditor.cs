@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using TAW_VR.Runtime.Core.Drawing;
