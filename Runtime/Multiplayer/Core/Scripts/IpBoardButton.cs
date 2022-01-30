@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+#if MIRROR
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace TAW_VR.Runtime.Multiplayer.Core.Scripts
@@ -15,3 +16,4 @@ namespace TAW_VR.Runtime.Multiplayer.Core.Scripts
     }
   }
 }
+#endif
