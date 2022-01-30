@@ -11,6 +11,8 @@ namespace TawVR.Editor.VrInputSettings
   {
     public VrRig rigInstance;
     private GUIStyle _centeredLabel;
+    private GUIStyle _middleLabelStyle;
+    private Vector2 _scrollPosition;
 
     [HideInInspector] public bool editingInput = false;
 
@@ -134,8 +136,12 @@ namespace TawVR.Editor.VrInputSettings
 
     private void EditInput()
     {
-      EditorGUILayout.Foldout(true, "Left Controller");
-      EditorGUI.indentLevel++;
+      _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition, false, true);
+      
+      GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
+      GUILayout.Label("<b>Left Controller</b>", _middleLabelStyle);
+      EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+      
       EditorGUILayout.Foldout(editingLeftJoystick, "Left Joystick");
       if (editingLeftJoystick)
       {
@@ -179,10 +185,10 @@ namespace TawVR.Editor.VrInputSettings
         IndentedEvent(_leftGripPressureCalls);
       }
 
-      EditorGUI.indentLevel--;
-
-      EditorGUILayout.Foldout(true, "Right Controller");
-      EditorGUI.indentLevel++;
+      GUILayout.Space(EditorGUIUtility.singleLineHeight / 2);
+      GUILayout.Label("<b>Right Controller</b>", _middleLabelStyle);
+      EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+      
       EditorGUILayout.Foldout(editingRightJoystick, "Right Joystick");
       if (editingRightJoystick)
       {
@@ -226,7 +232,7 @@ namespace TawVR.Editor.VrInputSettings
         IndentedEvent(_rightGripPressureCalls);
       }
 
-      EditorGUI.indentLevel--;
+      EditorGUILayout.EndScrollView();
       
       serializedObject.ApplyModifiedProperties();
     }
@@ -242,6 +248,13 @@ namespace TawVR.Editor.VrInputSettings
           textColor = Color.white
         },
         padding = new RectOffset(0, 0, 4, 4)
+      };
+      
+      _middleLabelStyle = new GUIStyle(GUI.skin.label)
+      {
+        richText = true,
+        alignment = TextAnchor.MiddleCenter,
+        fontSize = 16
       };
     }
 
