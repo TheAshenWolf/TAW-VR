@@ -1916,8 +1916,8 @@ MonoBehaviour:
   triggerEnterCallback:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 819091429}
-        m_MethodName: HostServer
+      - m_Target: {fileID: 1304913362}
+        m_MethodName: StartHost
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3923,10 +3923,5 @@ PrefabInstance:
       propertyPath: transport
       value: 
       objectReference: {fileID: 1593607883}
-    - target: {fileID: 5707700823726585448, guid: 81a975819aaad674bb4308bc8bf5c1fa,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81a975819aaad674bb4308bc8bf5c1fa, type: 3}
