@@ -11,7 +11,7 @@ namespace TAW_VR.Runtime.Core.Tools
   {
     [Title("Settings")]
     public float duration = 0.5f;
-    public UnityAction callback;
+    public UnityEvent callback;
     [Tooltip("TAW-VR/Runtime/Core/Prefabs/LoadingPanel.prefab")] public GameObject loadingBarPrefab;
     public Vector3 loadingPositionOffset = new Vector3(0, 0, -0.51f);
     public Vector3 loadingRotationOffset;
